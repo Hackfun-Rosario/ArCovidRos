@@ -1,0 +1,19 @@
+version: '2.2'
+services:
+  server: 
+    image: node:alpine
+    working_dir: /app
+    ports:
+      - "7000:7000"
+    command: "./wait-for-mongo.sh npm run dev"
+    depends_on:
+      - "mongo"
+    links:
+      - "mongo:mongo"
+    volumes:
+      - './server:/app'
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - './mongo:/data/db'
