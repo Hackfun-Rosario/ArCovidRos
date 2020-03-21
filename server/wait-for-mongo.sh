@@ -2,6 +2,7 @@
 
 : ${MONGO_HOST:=mongo}
 : ${MONGO_PORT:=27017}
+npm install
 
 until nc -z $MONGO_HOST $MONGO_PORT
 do
