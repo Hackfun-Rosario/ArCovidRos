@@ -6,4 +6,4 @@ El proyecto está configurado para development!!
 Ejecuta un nodemon por lo que va a recrear el server en vivo mientras se desarrolla.
 
 * Para ver la documentación del api dirigirse a la url editor.swagger.io y luego importar la siguiente url:
-`https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/swagger.yaml`
+`https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml`
