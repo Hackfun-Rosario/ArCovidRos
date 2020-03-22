@@ -1,0 +1,338 @@
+swagger: "2.0"
+info:
+  description: "API pública para la consulta de casos de coronavirus en la Argentina"
+  version: "0.1.0"
+  title: "ArCovidAPI"
+  contact:
+    email: "hackerfun@hackerfun.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "host.hackerfun.org"
+basePath: "/api"
+schemes:
+- "https"
+- "http"
+paths:
+  /stats:
+    post:
+      tags:
+      - "stats"
+      summary: "Agregar una estadística a la base de datos"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+        - bearerAuth: []
+          
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/InputStat"
+      responses:
+        201:
+          description: "Dato guardado correctamente"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                example: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Stat"
+        400:
+          description: "Datos Inválidos o inexistentes; error al guardar en la base"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+            
+    get:
+      tags:
+      - "stats"
+      summary: "Update an existing pet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Devuelve todas las estadísticas de la base de datos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Stat"
+        400:
+          description: "Error al consultar la base de datos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "error"
+
+  /petgetStatByProvincia/{provincia}:
+    get:
+      tags:
+      - "stats"
+      summary: "Buscar estadísticas por provincia"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "provincia"
+        in: "path"
+        description: "Provincia a consultar"
+        required: true
+        type: "string"
+
+      responses:
+        200:
+          description: "Todos los datos de una provincia"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Stat"
+        400:
+          description: "Error al consultar la base de datos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "error"
+
+  /getStatByFecha/{fecha}:
+    get:
+      tags:
+      - "stats"
+      summary: "Buscar estadísticas por fecha"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fecha"
+        in: "path"
+        description: "Fecha a consultar"
+        required: true
+        type: "string"
+
+      responses:
+        200:
+          description: "Todos los datos de una fecha"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Stat"
+        400:
+          description: "Error al consultar la base de datos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "error"
+
+  /auth/signIn:
+    post:
+      tags:
+      - "auth"
+      summary: "Logueo de un usuario"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+            email:
+              type: "string"
+            password:
+              type: "string"
+            name:
+              type: "string"
+            admin:
+              type: "boolean"              
+      responses:
+        200:
+          description: "JWT Token"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              data:
+                type: "string"
+                example: "Usuario creado"
+                
+        400:
+          description: "Datos inválidos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+  
+  /auth/regusterUser:
+    post:
+      tags:
+      - "auth"
+      summary: "Logueo de un usuario"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+            password:
+              type: "string"
+              
+      responses:
+        200:
+          description: "JWT Token"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              token:
+                type: "string"
+                
+        403:
+          description: "Datos inválidos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                default: "Forbidden"
+
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "User"
+  InputStat:
+    type: "object"
+    properties:
+      fecha:
+        type: "string"
+        example: "2020-03-19T00:00:00.000Z"
+      provincia:
+        type: "string"
+        example: "Santa Fe"
+      confirmados:
+        type: "integer"
+        example: "12"
+        format: "int32"
+      muertes:
+        type: "integer"
+        example: "2"
+        format: "int32"
+  Stat:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        example: "5e77787d9d388471919abc70"
+      fecha:
+        type: "string"
+        example: "2020-03-19T00:00:00.000Z"
+      provincia:
+        type: "string"
+        example: "Santa Fe"
+      confirmados:
+        type: "integer"
+        example: "12"
+        format: "int32"
+      muertes:
+        type: "integer"
+        example: "2"
+        format: "int32"
+      createdAt:
+        type: "string"
+        example: "2020-03-22T14:38:53.524Z"
+      updatedAt:
+        type: "string"
+        example: "2020-03-22T14:38:53.524Z"
+
+        
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    in: "header"
+    name: "Authorization"
+      
