@@ -3,9 +3,12 @@ const express = require('express'),
   cors = require('cors'),
   app = express(),
   db = require('./db'),
+  jwtkey = process.env.JWTKEY,
   port = process.env.PORT || 7000,
-  statsRouter = require('./routes/stats-routes')
+  StatsRouter = require('./routes/stats-routes'),
+  UsersRouter = require('./routes/auth-routes')
 
+  app.set('jwtkey', jwtkey)
   app.use(bodyParser.urlencoded({ extended: true}))
   app.use(cors())
   app.use(bodyParser.json())
@@ -16,6 +19,6 @@ const express = require('express'),
     res.send('Hello World!')
   })
 
-  app.use('/api', statsRouter)
-  
+  app.use('/api', StatsRouter)
+  app.use('/api/auth', UsersRouter)  
   app.listen(port, () => console.log(`Server listening on port ${port}`))

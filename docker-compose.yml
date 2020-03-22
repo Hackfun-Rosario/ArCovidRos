@@ -3,6 +3,8 @@ services:
   server: 
     image: node:alpine
     working_dir: /app
+    environment:
+      - JWTKEY=kUYzCw2m9PAOGaDs5oHasmJYNNKgqxJ+3VK1dNX3zM8kTlu0FKH4cmJKqvhveOiW
     ports:
       - "7000:7000"
     command: "./wait-for-mongo.sh npm run dev"
