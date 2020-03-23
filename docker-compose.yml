@@ -2,6 +2,7 @@ version: '2.3'
 services:
   server: 
     image: node:alpine
+    env_file: .env
     working_dir: /app
     restart: unless-stopped
     ports:
