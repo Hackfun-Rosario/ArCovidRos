@@ -7,9 +7,10 @@ services:
       - JWTKEY=kUYzCw2m9PAOGaDs5oHasmJYNNKgqxJ+3VK1dNX3zM8kTlu0FKH4cmJKqvhveOiW
       - ADMINKEY=067801ea8215ac074eaec4e956f63618bb2200b7aea227deadffad5dbbaee79452cb5115af8b4300680a0eeb3edc1bd0
       - JWTEXPIRE=1440
+    restart: unless-stopped
     ports:
       - "7000:7000"
-    command: "./wait-for-mongo.sh npm run dev"
+    command: "./wait-for-mongo.sh"
     depends_on:
       - "mongo"
     links:
@@ -18,6 +19,7 @@ services:
       - './server:/app'
 
   mongo:
+    restart: unless-stopped
     image: mongo:latest
     volumes:
       - './mongo:/data/db'
