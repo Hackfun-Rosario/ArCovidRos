@@ -1,4 +1,4 @@
-version: '2.2'
+version: '2.3'
 services:
   server: 
     image: node:alpine
@@ -13,6 +13,13 @@ services:
       - "mongo:mongo"
     volumes:
       - './server:/app'
+
+  client:
+    build: 
+      context: ./client
+      target: client-prod
+    ports:
+      - "8888:80"
 
   mongo:
     restart: unless-stopped
