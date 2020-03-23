@@ -16,6 +16,9 @@ const signIn = (req, res) => {
     {username: body.username}
   )
   .then(user => {
+    if(!user) {
+      return res.status(403).json(forbidden)
+    }
     user.comparePassword(body.password, (err, isMatch) => {
       if(err) {
         console.log(err)
