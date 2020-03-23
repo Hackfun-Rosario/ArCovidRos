@@ -14,6 +14,7 @@
     "@types/react": "^16.9.25",
     "autoprefixer": "^9.7.4",
     "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.3",
     "typescript": "^3.8.3"
   },
   "dependencies": {

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
+import Login from './Login/index';
 
 interface HomeProps {
   children: any;
@@ -7,7 +8,6 @@ interface HomeProps {
 
 const Abm = ({ children }: HomeProps): ReactElement => <h1>Abm</h1>;
 const Home = ({ children }: HomeProps): ReactElement => <h1>Home</h1>;
-const Login = ({ children }: HomeProps): ReactElement => <h1>Login</h1>;
 const NoMatch = (): ReactElement => {
   const location = useLocation();
 
