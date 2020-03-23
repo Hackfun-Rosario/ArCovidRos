@@ -2,7 +2,7 @@ const CovidStats = require('../models/stats-model')
 
 createStat = async (req, res) => {
   const body = req.body
-  console.log(req.user_id);
+  body.userId = req.user_id._id
 
   if(!body) {
     return res.status(400).json({
@@ -10,6 +10,9 @@ createStat = async (req, res) => {
       error: 'Es necesario cargar los datos para guardar.'
     })
   }
+
+  body.timestamp = new Date(body.fecha).getTime()
+  console.log(body.timestamp)
 
   const stat = await CovidStats.findOneAndUpdate(
     {provincia:body.provincia, fecha:body.fecha},

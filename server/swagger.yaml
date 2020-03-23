@@ -169,7 +169,7 @@ paths:
                 type: "string"
                 example: "error"
 
-  /auth/signIn:
+  /auth/registerUser:
     post:
       tags:
       - "auth"
@@ -177,6 +177,11 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "admin-key"
+        in: "header"
+        type: "string"
+        required: true
+        description: "Admin Key necesaria para crear usuarios"
       - name: "body"
         in: "body"
         schema:
@@ -202,7 +207,7 @@ paths:
                 type: "boolean"
                 default: "true"
               data:
-                type: "string"
+                type: "object"
                 example: "Usuario creado"
                 
         400:
@@ -216,8 +221,19 @@ paths:
               error:
                 type: "string"
                 example: "Es necesario cargar los datos para guardar."
+        403:
+          description: "No tiene permisos para crear usuarios"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: false
+              error:
+                type: "string"
+                default: "Forbidden"
   
-  /auth/regusterUser:
+  /auth/signIn:
     post:
       tags:
       - "auth"
@@ -246,6 +262,9 @@ paths:
                 default: "true"
               token:
                 type: "string"
+              expire:
+                type: "integer"
+                example: "1440"
                 
         403:
           description: "Datos inválidos"
@@ -302,15 +321,23 @@ definitions:
         type: "integer"
         example: "2"
         format: "int32"
+      url:
+        type: "string"
+        example: "https://www.argentina.gob.ar/sites/default/files/22-03-20-reporte-diario_covid19.pdf"
   Stat:
     type: "object"
     properties:
       _id:
         type: "string"
         example: "5e77787d9d388471919abc70"
+        description: "Id del registro"
       fecha:
         type: "string"
         example: "2020-03-19T00:00:00.000Z"
+      timestamp:
+        type: "integer"
+        example: ""
+        description: "Formato en timestamp del campo fecha"
       provincia:
         type: "string"
         example: "Santa Fe"
@@ -322,6 +349,13 @@ definitions:
         type: "integer"
         example: "2"
         format: "int32"
+      url:
+        type: "string"
+        example: "https://www.argentina.gob.ar/sites/default/files/22-03-20-reporte-diario_covid19.pdf"
+      userId:
+        type: "string"
+        example: "5e776d97f097d3027803bb1c"
+        description: "Id del usuario que cargó la estadística"
       createdAt:
         type: "string"
         example: "2020-03-22T14:38:53.524Z"

@@ -8,6 +8,10 @@ const CovidStats = new Schema(
       required: true,
       index: true
     },
+    timestamp: {
+      type: Number,
+      index: true
+    },
     provincia: {
       type: String,
       required: true,
@@ -20,6 +24,12 @@ const CovidStats = new Schema(
     muertes: {
       type: Number,
       required: true
+    },
+    url: {
+      type: String
+    },
+    userId: {
+      type: String
     }
   },
   {

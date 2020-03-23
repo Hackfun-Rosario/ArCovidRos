@@ -22,12 +22,14 @@ const signIn = (req, res) => {
         return res.status(403).json(forbidden)
       }
       if(isMatch) {
+        let expireTime = process.env.JWTEXPIRE || 1440
         const token = jwt.sign({_id:user.id}, req.app.get('jwtkey'), {
-          expiresIn: 1440
+          expiresIn: parseInt(expireTime)
         });
         return res.json({
           success: true,
-          token: token
+          token: token,
+          expire: expireTime
         });
       } 
       return res.status(403).json(forbidden)

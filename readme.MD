@@ -1,14 +1,32 @@
 # AR COVID-19 ROS
 
 ## API Server
+El server se encuentra dentro del folder server
+
+### Stack
+* Docker
+* docker-compose
+* MongoDB
+* Nodejs (express, mongoose, jwt)
+
+### Variables de entorno seteadas en el docker-compose
+* JWTKEY: key para encriptar el token de JWT (requerida)
+* ADMINKEY: key necesaria para registrar nuevos usuarios (requerida)
+* JWTEXPIRE: ttl para el token de JWT (por defecto 1440 si no está seteada)
+
+### Pasos para ejecutar el server en ambiente local
+
 El proyecto está configurado para development!!
-* Clonar el proyecto
-* Ejecutar `docker-compose up` y va a instalar librerías y ejecutar el server
+* Clonar el proyecto.
+* El docker-compose.yml ya tiene cargadas unas variables de entorno, se recomienda cambiarlas.
+* El docker-compose crea una contenedor de mongo db. Los datos se almacenan en la carpeta mongo.
+* Ejecutar `docker-compose up` y va a instalar librerías y ejecutar el server.
+ El comando up va a iniciar los contenedores en el bash y mostrar los respectivos logs, si se desea correrlos en background el comando es `docker-compose up -d`
+* El node se ejecuta mediante nodemon por lo que va a recrear el server en vivo mientras se desarrolla.
 
-Ejecuta un nodemon por lo que va a recrear el server en vivo mientras se desarrolla.
+* Link para ver la documentación de la API:
+https://inspector.swagger.io/?url=https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml
 
-* Para ver la documentación del api dirigirse a la url editor.swagger.io y luego importar la siguiente url:
-`https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml`
 
 ## Client
 
