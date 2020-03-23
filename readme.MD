@@ -12,7 +12,7 @@ Ejecuta un nodemon por lo que va a recrear el server en vivo mientras se desarro
 
 ## Client
 
-El cliente se encuentra dentro del folder client. `cd client`,
+El cliente se encuentra dentro del folder client
 
 Scripts disponibles:
 
