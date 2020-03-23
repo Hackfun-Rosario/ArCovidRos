@@ -12,8 +12,10 @@ Ejecuta un nodemon por lo que va a recrear el server en vivo mientras se desarro
 
 ## Client
 
-Primero que nada, `cd client`,
+El cliente se encuentra dentro del folder client. `cd client`,
 
-Luego, para instalar las dependencias: `yarn`
-Para levantar el cliente en modo dev: `yarn dev`
-Para build en modo producción: `yarn build`
+Scripts disponibles:
+
+* Para instalar las dependencias `yarn`
+* Para correr el cliente en modo dev `yarn dev`
+* Para generar el build de producción `yarn build`
