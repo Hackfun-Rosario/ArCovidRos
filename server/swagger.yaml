@@ -8,11 +8,10 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "host.hackerfun.org"
+host: "covidapi.hackfunrosario.com"
 basePath: "/api"
 schemes:
 - "https"
-- "http"
 paths:
   /stats:
     post:
@@ -313,6 +312,15 @@ definitions:
       provincia:
         type: "string"
         example: "Santa Fe"
+      ciudad:
+        type: "string"
+        example: "Rosario"
+      departamento:
+        type: "string"
+        example: "Rosario"
+      zona:
+        type: "string"
+        example: "Litoral"            
       confirmados:
         type: "integer"
         example: "12"
@@ -341,6 +349,15 @@ definitions:
       provincia:
         type: "string"
         example: "Santa Fe"
+      ciudad:
+        type: "string"
+        example: "Rosario"
+      departamento:
+        type: "string"
+        example: "Rosario"
+      zona:
+        type: "string"
+        example: "Litoral"        
       confirmados:
         type: "integer"
         example: "12"

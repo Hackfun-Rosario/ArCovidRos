@@ -17,6 +17,18 @@ const CovidStats = new Schema(
       required: true,
       index: true
     },
+    ciudad: {
+      type: String,
+      index: true
+    },
+    departamento: {
+      type: String,
+      index: true
+    },
+    zona: {
+      type: String,
+      index: true
+    },
     confirmados: {
       type: Number,
       required: true
