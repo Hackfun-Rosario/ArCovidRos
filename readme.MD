@@ -26,7 +26,8 @@ El proyecto está configurado para development!! (para producción setear MODE=p
 * El node se ejecuta mediante nodemon por lo que va a recrear el server en vivo mientras se desarrolla.
 
 * Link para ver la documentación de la API:
-https://inspector.swagger.io/?url=https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml
+
+https://editor.swagger.io/?url=https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml
 
 
 ## Client
