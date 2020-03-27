@@ -35,9 +35,9 @@ createStat = async (req, res) => {
 }
 
 const getAllStats = async (req, res) => {
-  await CovidStats.find(
-    {},
-    (err, stats) => {
+  await CovidStats.find()
+    .sort({fecha: -1})
+    .exec( (err, stats) => {
       if(err) {
         return res.status(400).json({
           success: false,
@@ -53,9 +53,9 @@ const getAllStats = async (req, res) => {
 }
 
 const getStatByFecha = async (req, res) => {
-  await CovidStats.find(
-    {fecha: req.params.fecha},
-    (err, stat) => {
+  await CovidStats.find({fecha: req.params.fecha})
+    .sort({fecha: -1})
+    .exec((err, stat) => {
       if(err) {
         return res.status(400).json({
           success: false,
@@ -71,9 +71,9 @@ const getStatByFecha = async (req, res) => {
 }
 
 const getStatByProvincia = async (req, res) => {
-  await CovidStats.find(
-    {provincia: req.params.provincia},
-    (err, stat) => {
+  await CovidStats.find({provincia: req.params.provincia})
+    .sort({fecha: -1})
+    .exec((err, stat) => {
       if(err) {
         return res.status(400).json({
           success: false,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema
-
+//confirmados_total, confirmados_dif, muertes_total, muertes_dif, recuperados_total, recuperados_dif
 const CovidStats = new Schema(
   {
     fecha: {
@@ -29,20 +29,37 @@ const CovidStats = new Schema(
       type: String,
       index: true
     },
-    confirmados: {
+    confirmados_total: {
       type: Number,
-      required: true
+      default: 0
     },
-    muertes: {
+    confirmados_dif: {
       type: Number,
-      required: true
+      default: 0
     },
+    muertes_total: {
+      type: Number,
+      default: 0
+    },
+    muertes_dif: {
+      type: Number,
+      default: 0
+    },
+    recuperados_total: {
+      type: Number,
+      default: 0
+    },
+    recuperados_dif: {
+      type: Number,
+      default: 0
+    },        
     url: {
       type: String
     },
     userId: {
       type: String
-    }
+    },
+
   },
   {
     timestamps: true

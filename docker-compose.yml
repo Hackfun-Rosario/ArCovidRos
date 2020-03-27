@@ -21,6 +21,8 @@ services:
       target: client-prod
     ports:
       - "8888:80"
+    links:
+      - "server:server"
 
   mongo:
     restart: unless-stopped
