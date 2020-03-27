@@ -321,14 +321,36 @@ definitions:
       zona:
         type: "string"
         example: "Litoral"            
-      confirmados:
+      confirmados_total:
         type: "integer"
         example: "12"
         format: "int32"
-      muertes:
+        description: "Total de confirmados al día de la fecha"
+      confirmados_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de confirmados entre el último reporte y el actual"        
+      muertes_total:
         type: "integer"
         example: "2"
         format: "int32"
+        description: "Total de muertes al día de la fecha"        
+      muertes_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de muertes entre el último reporte y el actual"        
+      recuperados_total:
+        type: "integer"
+        example: "2"
+        format: "int32"
+        description: "Total de recuperados al día de la fecha"        
+      recuperados_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de recuperados entre el último reporte y el actual"        
       url:
         type: "string"
         example: "https://www.argentina.gob.ar/sites/default/files/22-03-20-reporte-diario_covid19.pdf"
@@ -358,14 +380,36 @@ definitions:
       zona:
         type: "string"
         example: "Litoral"        
-      confirmados:
+      confirmados_total:
         type: "integer"
         example: "12"
         format: "int32"
-      muertes:
+        description: "Total de confirmados al día de la fecha"
+      confirmados_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de confirmados entre el último reporte y el actual"        
+      muertes_total:
         type: "integer"
         example: "2"
         format: "int32"
+        description: "Total de muertes al día de la fecha"        
+      muertes_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de muertes entre el último reporte y el actual"        
+      recuperados_total:
+        type: "integer"
+        example: "2"
+        format: "int32"
+        description: "Total de recuperados al día de la fecha"        
+      recuperados_dif:
+        type: "integer"
+        example: "12"
+        format: "int32"
+        description: "Diferencial de recuperados entre el último reporte y el actual"        
       url:
         type: "string"
         example: "https://www.argentina.gob.ar/sites/default/files/22-03-20-reporte-diario_covid19.pdf"
