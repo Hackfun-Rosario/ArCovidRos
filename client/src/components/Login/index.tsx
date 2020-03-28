@@ -4,15 +4,7 @@ import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import './styles.scss';
 import { useHistory } from "react-router-dom";
 import { isAuthorized } from '../../utils';
-
-enum METHODS {
-  GET = 'get',
-  POST = 'post',
-};
-const BASE_URL = 'https://covidapi.hackfunrosario.com/api';
-enum ENDPOINT {
-  LOGIN = '/auth/signIn',
-};
+import { METHODS, ENDPOINTS } from '../../common/contants';
 
 const Login = () => {
   const [username, setUsername] = useState<string>('');
@@ -22,9 +14,10 @@ const Login = () => {
 
   const handleClick = async () => {
     setLoading(true);
+
     await axios({
       method: METHODS.POST,
-      url: BASE_URL + ENDPOINT.LOGIN,
+      url: ENDPOINTS.LOGIN,
       data: {
         username,
         password,
@@ -33,10 +26,12 @@ const Login = () => {
       const { data: { token }} = response;
 
       localStorage.setItem('covidapi', JSON.stringify({ token: token }));
-      history.push('/crud');
+      history.push('/abm');
     }).catch((error) => {
       console.warn('Error while tryng to log in', error);
-    }).finally(() => setLoading(false));
+    });
+
+    setLoading(false);
   };
 
   useEffect(() => {

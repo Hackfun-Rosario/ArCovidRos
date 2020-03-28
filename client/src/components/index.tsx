@@ -1,21 +1,12 @@
 import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
+import Abm from './Abm/index';
 import Login from './Login/index';
 
 interface HomeProps {
   children: any;
 }
 
-const Abm = ({ children }: HomeProps): ReactElement => {
-  return (
-    <div>
-      ABM
-      <button onClick={() => {
-        localStorage.removeItem('covidapi');
-      }}>Cerrar sesión</button>
-    </div>
-  );
-};
 const Home = ({ children }: HomeProps): ReactElement => <h1>Home</h1>;
 const NoMatch = (): ReactElement => {
   const location = useLocation();

@@ -5,11 +5,11 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { Abm, Home, Login, NoMatch } from './containers';
+import { Abm, Home, Login, NoMatch } from './components';
 import { isAuthorized } from './utils';
 
 export enum ROUTES {
-  ABM = '/crud',
+  ABM = '/abm',
   HOME = '/',
   LOGIN = '/login',
   NO_MATCH = '*',
