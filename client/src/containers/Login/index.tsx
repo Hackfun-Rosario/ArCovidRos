@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import './styles.scss';
+import { useHistory } from "react-router-dom";
+import { isAuthorized } from '../../utils';
 
 enum METHODS {
   GET = 'get',
@@ -16,6 +18,7 @@ const Login = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  let history = useHistory();
 
   const handleClick = async () => {
     setLoading(true);
@@ -27,12 +30,21 @@ const Login = () => {
         password,
       }
     }).then((response) => {
-      // TODO: SAVE TOKEN HERE
-      console.log('response', response);
+      const { data: { token }} = response;
+
+      localStorage.setItem('covidapi', JSON.stringify({ token: token }));
+      history.push('/crud');
     }).catch((error) => {
       console.warn('Error while tryng to log in', error);
     }).finally(() => setLoading(false));
   };
+
+  useEffect(() => {
+    if (isAuthorized()) {
+      // TODO: ADD MORE SECURITY IN THIS ONE.
+      history.push('/crud');
+    }
+  }, [])
 
   return (
     <Grid className="login" container justify="center" direction="column" spacing={3} xs={3}>
@@ -58,6 +70,7 @@ const Login = () => {
           onChange={event => {
             setPassword(event?.target?.value);
           }}
+          type="password"
           value={password}
         />
       </Grid>

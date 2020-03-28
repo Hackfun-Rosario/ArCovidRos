@@ -6,7 +6,16 @@ interface HomeProps {
   children: any;
 }
 
-const Abm = ({ children }: HomeProps): ReactElement => <h1>Abm</h1>;
+const Abm = ({ children }: HomeProps): ReactElement => {
+  return (
+    <div>
+      ABM
+      <button onClick={() => {
+        localStorage.removeItem('covidapi');
+      }}>Cerrar sesión</button>
+    </div>
+  );
+};
 const Home = ({ children }: HomeProps): ReactElement => <h1>Home</h1>;
 const NoMatch = (): ReactElement => {
   const location = useLocation();
