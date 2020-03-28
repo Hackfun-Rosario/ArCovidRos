@@ -24,11 +24,10 @@ paths:
       - "application/json"
       security:
         - bearerAuth: []
-          
       parameters:
       - in: "body"
         name: "body"
-        description: "Pet object that needs to be added to the store"
+        description: "Información que será agregada a la base de datos"
         required: true
         schema:
           $ref: "#/definitions/InputStat"
@@ -56,11 +55,10 @@ paths:
               error:
                 type: "string"
                 example: "Es necesario cargar los datos para guardar."
-            
     get:
       tags:
       - "stats"
-      summary: "Update an existing pet"
+      summary: "Obtener las estadísticas existentes"
       consumes:
       - "application/json"
       produces:
@@ -89,8 +87,7 @@ paths:
               error:
                 type: "string"
                 example: "error"
-
-  /petgetStatByProvincia/{provincia}:
+  /getStatByProvincia/{provincia}:
     get:
       tags:
       - "stats"
@@ -103,7 +100,6 @@ paths:
         description: "Provincia a consultar"
         required: true
         type: "string"
-
       responses:
         200:
           description: "Todos los datos de una provincia"
@@ -128,7 +124,6 @@ paths:
               error:
                 type: "string"
                 example: "error"
-
   /getStatByFecha/{fecha}:
     get:
       tags:
@@ -139,10 +134,9 @@ paths:
       parameters:
       - name: "fecha"
         in: "path"
-        description: "Fecha a consultar"
+        description: "Fecha a consultar, en formato RFC3339 §5.6"
         required: true
         type: "string"
-
       responses:
         200:
           description: "Todos los datos de una fecha"
@@ -167,12 +161,11 @@ paths:
               error:
                 type: "string"
                 example: "error"
-
   /auth/registerUser:
     post:
       tags:
       - "auth"
-      summary: "Logueo de un usuario"
+      summary: "Registro de un usuario nuevo"
       produces:
       - "application/json"
       parameters:
@@ -208,7 +201,6 @@ paths:
               data:
                 type: "object"
                 example: "Usuario creado"
-                
         400:
           description: "Datos inválidos"
           schema:
@@ -231,7 +223,6 @@ paths:
               error:
                 type: "string"
                 default: "Forbidden"
-  
   /auth/signIn:
     post:
       tags:
@@ -249,7 +240,6 @@ paths:
               type: "string"
             password:
               type: "string"
-              
       responses:
         200:
           description: "JWT Token"
@@ -264,7 +254,6 @@ paths:
               expire:
                 type: "integer"
                 example: "1440"
-                
         403:
           description: "Datos inválidos"
           schema:
@@ -276,8 +265,6 @@ paths:
               error:
                 type: "string"
                 default: "Forbidden"
-
-
 definitions:
   User:
     type: "object"
@@ -289,10 +276,14 @@ definitions:
         type: "string"
       firstName:
         type: "string"
+        description: "Nombre"
       lastName:
         type: "string"
+        description: "Apellido"
       email:
         type: "string"
+        format: "email"
+        description: "Correo del usuario"
       password:
         type: "string"
       phone:
@@ -300,7 +291,7 @@ definitions:
       userStatus:
         type: "integer"
         format: "int32"
-        description: "User Status"
+        description: "Estado del usuario"
     xml:
       name: "User"
   InputStat:
@@ -364,10 +355,11 @@ definitions:
       fecha:
         type: "string"
         example: "2020-03-19T00:00:00.000Z"
+        description: "Fecha del registro, en formato RFC3339 §5.6"
       timestamp:
         type: "integer"
-        example: ""
-        description: "Formato en timestamp del campo fecha"
+        example: "1584586800"
+        description: "Fecha del registro en formato timestamp"
       provincia:
         type: "string"
         example: "Santa Fe"
@@ -420,10 +412,11 @@ definitions:
       createdAt:
         type: "string"
         example: "2020-03-22T14:38:53.524Z"
+        description: "Fecha de creación del registro, en formato RFC3339 §5.6"
       updatedAt:
         type: "string"
         example: "2020-03-22T14:38:53.524Z"
-
+        description: "Fecha de actualización del registro, en formato RFC3339 §5.6"
         
 securityDefinitions:
   bearerAuth:
