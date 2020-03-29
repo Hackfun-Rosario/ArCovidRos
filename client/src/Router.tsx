@@ -6,7 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { Abm, Home, Login, NoMatch } from './components';
-import { isAuthorized } from './utils';
+import { session } from './utils';
 
 export enum ROUTES {
   ABM = '/abm',
@@ -31,7 +31,7 @@ const renderPublicRoute = ({ path, Component, name }: RouteItem): ReactElement =
 };
 const renderPrivateRoute = ({ path, Component, name }: RouteItem): ReactElement =>
   <Route key={name} path={path} render={() => {
-    return isAuthorized() ?
+    return session.isAuthorized() ?
     <Component /> :
     <Redirect to={{ pathname: ROUTES.LOGIN }} />
   }} />

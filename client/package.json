@@ -4,6 +4,11 @@
   "description": "COVID-19 Client",
   "author": "Hackfun Rosario",
   "license": "MIT",
+  "alias": {
+    "components": "./src/components",
+    "common": "./src/common",
+    "utils": "./src/utils"
+  },
   "scripts": {
     "prebuild": "yarn clean",
     "build": "parcel build src/index.html",

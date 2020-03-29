@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
-import './styles.scss';
 import { useHistory } from "react-router-dom";
-import { isAuthorized } from '../../utils';
-import { METHODS, ENDPOINTS } from '../../common/contants';
+
+import { METHODS, ENDPOINTS } from 'common/contants';
+import { Layout } from 'components';
+import { session } from 'utils';
+import './styles.scss';
 
 const Login = () => {
+  const { isAuthorized } = session;
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,50 +39,51 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthorized()) {
-      // TODO: ADD MORE SECURITY IN THIS ONE.
-      history.push('/crud');
+      history.push('/abm');
     }
   }, [])
 
   return (
-    <Grid className="login" container justify="center" direction="column" spacing={3} xs={3}>
-      <Grid item>
-        <Typography variant="h5">Personal autorizado</Typography>
+    <Layout className="login">
+      <Grid className="login__content" container direction="column" spacing={3} xs={4}>
+        <Grid item>
+          <Typography variant="h5">Personal autorizado</Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Usuario"
+            fullWidth
+            required
+            onChange={event => {
+              setUsername(event?.target?.value);
+            }}
+            value={username}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Contraseña"
+            fullWidth
+            required
+            onChange={event => {
+              setPassword(event?.target?.value);
+            }}
+            type="password"
+            value={password}
+          />
+        </Grid>
+        <Grid item align="right">
+          <Button
+            color="primary"
+            disabled={loading}
+            variant="contained"
+            onClick={handleClick}
+          >
+            Iniciar sesion
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <TextField
-          fullWidth
-          placeholder="Ingrese usuario"
-          required
-          onChange={event => {
-            setUsername(event?.target?.value);
-          }}
-          value={username}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          fullWidth
-          placeholder="Ingrese contraseña"
-          required
-          onChange={event => {
-            setPassword(event?.target?.value);
-          }}
-          type="password"
-          value={password}
-        />
-      </Grid>
-      <Grid item align="right">
-        <Button
-          color="primary"
-          disabled={loading}
-          variant="contained"
-          onClick={handleClick}
-        >
-          Iniciar sesion
-        </Button>
-      </Grid>
-    </Grid>
+    </Layout>
   );
 };
 

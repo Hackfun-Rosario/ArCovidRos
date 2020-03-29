@@ -1,5 +1,5 @@
-import isAuthorized from './isAuthorized';
+import session from './session';
 
 export {
-  isAuthorized,
+  session,
 }
