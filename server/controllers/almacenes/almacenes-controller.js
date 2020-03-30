@@ -1,5 +1,6 @@
 const Almacen = require('../../models/almacenes/almacen-model'),
-  Barrio = require('../../models/almacenes/barrio-model')
+  Barrio = require('../../models/almacenes/barrio-model'),
+  Distrito = require('../../models/almacenes/distrito-model'),
   responses = require('../../responses')
 
 const createAlmacen = async (req, res) => {
@@ -86,9 +87,47 @@ const findAlmacenesNearMe = async (req, res) => {
  
 }
 
+const whereInBarrioDistrito = async (req, res) => {
+
+  const lat = parseFloat(req.query.lat),
+  lng = parseFloat(req.query.lng)
+
+  if(!lat && !lng) {
+    return res.status(400).json(responses.faltanDatos)
+  }  
+
+  let aux = {}
+  const barrio = await Barrio.findOne({
+    geojson: {
+      $geoIntersects: {
+        $geometry: {
+          type: "Point",
+          coordinates: [lng, lat]
+        }
+      }
+    }
+  })
+  aux.barrio = barrio!=undefined ? barrio.barrio : "No encontrado"
+
+  const distrito = await Distrito.findOne({
+    geojson: {
+      $geoIntersects: {
+        $geometry: {
+          type: "Point",
+          coordinates: [lng, lat]
+        }
+      }
+    }
+  })
+
+  aux.distrito = distrito!=undefined ? `${distrito.distrito} (${distrito.observacion})` : "No encontrado"
+  return res.status(200).json(responses.responseData(aux))
+}
+
 module.exports = {
   createAlmacen,
   findAlmacenesByBarrio,
   findAlmacenesNearMe,
-  getAllAlmacenes
+  getAllAlmacenes,
+  whereInBarrioDistrito
 }
