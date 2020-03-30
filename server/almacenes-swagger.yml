@@ -17,30 +17,235 @@ paths:
     get:
       tags:
         - "almacenes"
+      summary: "Lista los almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Listado completo de almacenes"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:          
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen'
   /almacenes/almacen:
     post:
       tags:
         - "almacenes"
+      summary: "Inserta un almacén o actualiza por su nombre"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"        
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: "body"
+          name: "body"
+          schema:
+            $ref: '#/definitions/AlmacenInput'
+      responses:
+        201:
+          description: "Dato guardado correctamente"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                example: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Almacen"
+        400:
+          description: "Datos Inválidos o inexistentes; error al guardar en la base"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+          
   /almacenes/findAlmacenesByBarrio/{idBarrio}:
     get:
       tags:
         - "almacenes"
+      summary: "Encuentra los almacenes que están dentro del barrio ingresado"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "idBarrio"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Listado de almacenes dentro del barrio"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen'   
+          
+      
   /almacenes/findAlmacenesNearMe:
     get:
       tags:
         - "almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      summary: "Encuentra los almacenes cercanos al punto ingresado"
+      parameters:
+        - in: "query"
+          name: "lng"
+          description: "Longitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "lat"
+          description: "Latitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "maxDistance"
+          description: "Radio máximo de consulta"
+          default: 5000
+          type: "number"
+      responses:
+        200:
+          description: "Listado de almacenes cercanos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen' 
+  
   /almacenes/whereInBarrioDistrito:
     get:
       tags:
-        - "consultas"
+        - "almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      summary: "Encuentra el barrio y el distrito de un punto ingresado"
+      parameters:
+        - in: "query"
+          name: "lng"
+          description: "Longitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "lat"
+          description: "Latitud"
+          required: true
+          type: "number"
+      responses:
+        200:
+          description: "Barrio y distrito encontrados"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "object"
+                properties:
+                  barrio:
+                    type: "string"
+                    example: "Ludueña Sur y Norte"
+                  distrito:
+                    type: "string"
+                    example: "NORTE (Villa Hortencia)"
+  
   /almacenes/barrios:
     get:
       tags:
         - "barrios"
+      summary: "Lista los barrios"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Listado completo de barrios"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:          
+                type: "array"
+                items:
+                  $ref: '#/definitions/Barrio'        
   /almacenes/barrio:
     post:
       tags:
         - "barrios"
+      summary: "Inserta un barrio o actualiza por su nombre"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          schema:
+            $ref: '#/definitions/BarrioInput'
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Dato guardado correctamente"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                example: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Barrio"
+        400:
+          description: "Datos Inválidos o inexistentes; error al guardar en la base"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+                
   /auth/registerUser:
     post:
       tags:
@@ -175,14 +380,10 @@ definitions:
     xml:
       name: "User"
               
-  Barrio:
+  BarrioInput:
     type: "object"
     description: "Definición de un barrio"
     properties:
-      _id: 
-        type: "string"
-        example: "5e77787d9d388471919abc70"
-        description: "Id del registro"
       mslink:
         type: "number"
         description: "Parámetro heredado de los datos de la Municipalidad de Rosario"
@@ -194,15 +395,23 @@ definitions:
       geojson:
         description: "geoJSON correspondiente al polígono del barrio"
         $ref: '#/definitions/polygonSchema'
+        
+  Barrio:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/BarrioInput'
+      
 
-  Distrito:
+  DistritoInput:
     type: "object"
     description: "Definición de un distrito"
     properties:
-      _id: 
-        type: "string"
-        example: "5e77787d9d388471919abc70"
-        description: "Id del registro"
+
       distrito:
         type: "string"
         description: "Distrito de rosario"
@@ -213,15 +422,20 @@ definitions:
         example: "Rosa Ziperovich"
       geojson:
         description: "geoJSON correspondiente al polígono del distrito"
-        $ref: '#/definitions/polygonSchema'        
+        $ref: '#/definitions/polygonSchema'
+  Distrito:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/DistritoInput'
 
-  Almacen:
+  AlmacenInput:
     type: "object"
     properties:
-      _id:
-        type: "string"
-        example: "5e77787d9d388471919abc70"
-        description: "Id del registro"
       nombre:
         type: "string"
         example: "La Esquina - Bravi, Celia Cristina"
@@ -264,14 +478,27 @@ definitions:
         type: "array"
         items:
           $ref: '#/definitions/extraData'
-      createdAt:
-        type: "string"
-        example: "2020-03-22T14:38:53.524Z"
-        description: "Fecha de creación del registro, en formato RFC3339 §5.6"
-      updatedAt:
-        type: "string"
-        example: "2020-03-22T14:38:53.524Z"
-        description: "Fecha de actualización del registro, en formato RFC3339 §5.6"
+
+
+  Almacen:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/AlmacenInput'
+      - type: "object"
+        properties:
+          createdAt:
+            type: "string"
+            example: "2020-03-22T14:38:53.524Z"
+            description: "Fecha de creación del registro, en formato RFC3339 §5.6"
+          updatedAt:
+            type: "string"
+            example: "2020-03-22T14:38:53.524Z"
+            description: "Fecha de actualización del registro, en formato RFC3339 §5.6"      
 
   extraData:
     type: "object"

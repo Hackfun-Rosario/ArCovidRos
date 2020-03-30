@@ -59,7 +59,8 @@ const findAlmacenesByBarrio = async (req, res) => {
 
 const findAlmacenesNearMe = async (req, res) => {
   const lat = parseFloat(req.query.lat),
-      lng = parseFloat(req.query.lng)
+      lng = parseFloat(req.query.lng),
+      maxDistance = parseInt(req.query.maxDistance) || 5000
 
   if(!lat && !lng) {
     return res.status(400).json(responses.faltanDatos)
@@ -75,7 +76,7 @@ const findAlmacenesNearMe = async (req, res) => {
         },
         distanceField: "distancia",
         spherical: true,
-        maxDistance: 5000
+        maxDistance: maxDistance
       }
     }
   ])
