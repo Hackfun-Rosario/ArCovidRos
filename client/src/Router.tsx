@@ -5,15 +5,11 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { Abm, Home, Login, NoMatch } from './components';
-import { session } from './utils';
 
-export enum ROUTES {
-  ABM = '/abm',
-  HOME = '/',
-  LOGIN = '/login',
-  NO_MATCH = '*',
-};
+import { Abm, Home, Login, NoMatch } from './components';
+import { constants, session } from './utils';
+
+const { ROUTES } = constants;
 
 interface RouteItem {
   Component: ReactElement;
@@ -43,8 +39,13 @@ const Routes = (props: any): ReactElement => {
     needAuth: false,
     name: 'home',
   }, {
-    Component: Abm,
-    path: ROUTES.ABM,
+    Component: Abm.Province,
+    path: ROUTES.ABM_PROVINCE,
+    needAuth: true,
+    name: 'abm',
+  }, {
+    Component: Abm.City,
+    path: ROUTES.ABM_CITY,
     needAuth: true,
     name: 'abm',
   }, {

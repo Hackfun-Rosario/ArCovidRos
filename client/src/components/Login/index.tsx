@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 
-import { METHODS, ENDPOINTS } from 'common/contants';
+import { METHODS, ENDPOINTS } from 'utils/constants';
 import { Layout } from 'components';
 import { session } from 'utils';
 import './styles.scss';
@@ -39,7 +39,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthorized()) {
-      history.push('/abm');
+      history.push('/abm/province');
     }
   }, [])
 
