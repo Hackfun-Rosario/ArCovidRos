@@ -9,4 +9,11 @@ const isAuthorized = (): boolean => {
   return isAuthorized;
 };
 
-export default isAuthorized;
+const clearStorage = (): void => {
+  localStorage.removeItem('covidapi');
+};
+
+export default {
+  isAuthorized,
+  clearStorage,
+};

@@ -1,22 +1,15 @@
 import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import Abm from './Abm/index';
 import Login from './Login/index';
+import Layout from './Layout/index';
+import Home from './Home/index';
 
 interface HomeProps {
   children: any;
 }
 
-const Abm = ({ children }: HomeProps): ReactElement => {
-  return (
-    <div>
-      ABM
-      <button onClick={() => {
-        localStorage.removeItem('covidapi');
-      }}>Cerrar sesión</button>
-    </div>
-  );
-};
-const Home = ({ children }: HomeProps): ReactElement => <h1>Home</h1>;
 const NoMatch = (): ReactElement => {
   const location = useLocation();
 
@@ -28,6 +21,7 @@ const NoMatch = (): ReactElement => {
 export {
   Abm,
   Home,
+  Layout,
   Login,
   NoMatch,
 }
