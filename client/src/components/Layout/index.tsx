@@ -32,6 +32,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
         {isAuthorized() && (
           <Grid container alignItems="center">
             <Grid item xs={4}>
+              <Link style={{marginRight: '10px'}} onClick={() => handleLinkClick(ROUTES.HOME)}>Inicio</Link>
               <Link style={{marginRight: '10px'}} onClick={() => handleLinkClick(ROUTES.ABM_PROVINCE)}>Alta Provincia</Link>
               <Link onClick={() => handleLinkClick(ROUTES.ABM_CITY)}>Alta Ciudad</Link>
             </Grid>
