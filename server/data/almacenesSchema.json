@@ -1,0 +1,27 @@
+{
+  "nombre": "",
+  "direccion": "",
+  "descripcion": "",
+  "tipo_comercio": "",
+  "telefono": [""],
+  "whatsapp": [""],
+  "barrio": "",
+  "distrito": "",
+  "posicion": "pointSchema(geoJSON)",
+  "extra": [
+    {
+      "data": {
+        "nombre": "",
+        "tipo": "link",
+        "valor": "https://lalala"
+      }
+    },
+    {
+      "data": {
+        "nombre": "",
+        "tipo": "img",
+        "valor": "https://doc-0o-bs-mymaps.googleusercontent.com/untrusted/hostedimage/e0ot9pb1723essrtig0l3g9d80/hovitd663smmi5nshj9ic1ahgk/1585417749500/66PnCOTt9iKcqthr-PYme-fX7lBW5m0d/06703434789890473734/5AF2TALqjN7dSjmLhkzLhh2hHbLt-7cceiFp_CYU0AQusy-1zfsHJ9DQHv9jioStnBR0fBStyh4eufQHt0iZ9869vdOaNBGKyGRis_yr8O6FEDgODKJzWqPHMEBT6m3sRwv6DchQ9OeEax98ummm0KL6SkfPwznaQIcyiPUa08HALTlyxvWa8AU8z06WDPuhQZ4KqE4yjWIOu0Pa3uDB2O6HfRSQzzqe9N2x4ePPwkLZzkMEi67pD9PTjJ1Vn1eFDXg7zd-iiy59ROZq1p0Ac0F0tiFBu4P4qbg?session=0&fife"
+      }
+    }
+  ]
+}

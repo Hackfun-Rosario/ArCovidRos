@@ -1,6 +1,6 @@
 const express = require('express'),
-  StatsController = require('../controllers/stats-controller'),
-  AuthMiddleware = require('../middlewares/is-authenticated')
+  StatsController = require('../../controllers/covid/stats-controller'),
+  AuthMiddleware = require('../../middlewares/is-authenticated')
   router = express.Router()
 
 router.post('/stats',AuthMiddleware.isAuthenticatedMiddleware, StatsController.createStat)
