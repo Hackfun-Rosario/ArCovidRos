@@ -7,7 +7,7 @@ const Home = () => (
   <Layout>
     <Grid container>
       <Grid item>
-        <Typography variant="h5">COVID-19 Rosario</Typography>
+        <Typography variant="h5" style={{color:"white "}}>COVID-19 Rosario</Typography>
       </Grid>
     </Grid>
   </Layout>
