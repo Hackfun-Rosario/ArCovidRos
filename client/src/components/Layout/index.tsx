@@ -99,6 +99,3 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 };
 
 export default Layout;
-
-
-
