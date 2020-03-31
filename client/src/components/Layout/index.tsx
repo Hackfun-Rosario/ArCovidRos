@@ -4,8 +4,6 @@ import { Button, Grid, Link, AppBar, Toolbar, IconButton, Typography, MenuItem, 
 import MenuIcon from '@material-ui/icons/Menu';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
-
-
 import cn from 'classnames';
 
 import { constants, session } from 'utils';
