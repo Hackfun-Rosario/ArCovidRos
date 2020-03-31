@@ -74,9 +74,13 @@ const Login = () => {
         </Grid>
         <Grid item align="right">
           <Button
-            color="primary"
+            style={{
+              color:"#00ff8b",
+              borderColor:"#00ff8b",
+              fontWeight:"bold"
+              }}
             disabled={loading}
-            variant="contained"
+            variant="outlined"
             onClick={handleClick}
           >
             Iniciar sesion
