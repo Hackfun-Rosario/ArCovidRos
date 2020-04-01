@@ -801,7 +801,7 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
   integrity sha512-FmuxfCuolpLl0AnQ2NHSzoUKWEJDFl63qXjzdoWBVyFCXzMGm1spBzk7LeHNoVCiWCF7mRVms9e6jEV9+MoPbg==
 
-"@material-ui/core@^4.9.8":
+"@material-ui/core@^4.0.0":
   version "4.9.8"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.8.tgz#21c37a9aadf4ff8a2719b8cfcad0ae9e6ca53791"
   integrity sha512-4cslpG6oLoPWUfwPkX+hvbak4hAGiOfgXOu/UIYeeMrtsTEebC0Mirjoby7zhS4ny86YI3rXEFW6EZDmlj5n5w==
@@ -976,7 +976,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.29":
+"@types/react@*", "@types/react@^16.9.25":
   version "16.9.31"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.31.tgz#6a543529766c8934ec8a89667376c2e73e9e2636"
   integrity sha512-NpYJpNMWScFXtx3A2BJMeew2G3+9SEslVWMdxNJ6DLvxIuxWjY1bizK9q5Y1ujhln31vtjmhjOAYDr9Xx3k9FQ==
@@ -5626,7 +5626,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.13.1:
+react-dom@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
   integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
@@ -5680,7 +5680,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.13.1:
+react@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==

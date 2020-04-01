@@ -29,7 +29,14 @@ const NoMatch = (): ReactElement => {
       <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ padding: "150px 50px 150px 50px", borderRadius: "10px", boxShadow: "2px 2px 10px #666 ", textAlign: "center" }}>
         <Typography variant="h6">La ruta <code>{location.pathname}</code> es inválida</Typography>
-        <Button color="primary" variant="contained" onClick={() => handleLinkClick(ROUTES.HOME)}>
+        <Button style={{
+              color:"#00ff8b",
+              borderColor:"#00ff8b",
+              fontWeight:"bold"
+              }} 
+              variant="outlined" 
+              onClick={() => handleLinkClick(ROUTES.HOME)}>
+
           Volver al inicio
         </Button>
       </div>

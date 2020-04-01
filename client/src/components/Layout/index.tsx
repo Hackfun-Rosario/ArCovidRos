@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Grid, Link, AppBar, Toolbar, IconButton, Typography, MenuItem, Menu }  from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import HackFunIcon from '../Icons/Ico01.svg';
 
 import cn from 'classnames';
 
@@ -39,11 +40,14 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar style={{ background: '#00011A'}} position="static" >
         <Toolbar variant="regular" >
         <Grid container direction="row" alignItems="center" > 
-          <Grid xs={1}/>
-            <Grid xs={9} >
+            <Grid xs={2}>
+              <img src={HackFunIcon} width="60px"/>
+            </Grid>
+            <Grid xs={8} >
+
               <Typography variant="h6" >
               Covid-19 HackFun
               </Typography>
@@ -67,15 +71,18 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
                 onClose={handleMenuClose}
               >
               <MenuItem onClick={handleMenuClose}>
-                <Link style={{ marginRight: '10px' }} onClick={() => handleLinkClick(ROUTES.HOME)}>Inicio</Link>
+
+                <Link style={{ marginRight: '10px', textDecoration:'none', color:'black' }} onClick={() => handleLinkClick(ROUTES.HOME)}>Inicio</Link>
+
               </MenuItem>
               {isAuthorized() && (
                 <div>
                   <MenuItem onClick={handleMenuClose}>
-                    <Link style={{marginRight: '10px'}} onClick={() => handleLinkClick(ROUTES.ABM_PROVINCE)}>Alta Provincia</Link>
+                    <Link style={{marginRight: '10px', textDecoration:'none', color:'black'}} onClick={() => handleLinkClick(ROUTES.ABM_PROVINCE)}>Alta Provincia</Link>
                   </MenuItem>
                   <MenuItem onClick={handleMenuClose}>
-                    <Link onClick={() => handleLinkClick(ROUTES.ABM_CITY)}>Alta Ciudad</Link>
+                    <Link onClick={() => handleLinkClick(ROUTES.ABM_CITY)} style={{textDecoration:'none', color:'black'}}>Alta Ciudad</Link>
+
                   </MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>
                 </div>
@@ -83,7 +90,9 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
             }
             {!isAuthorized() && (
               <MenuItem onClick={handleMenuClose}>
-                <Link onClick={() => handleLinkClick(ROUTES.LOGIN)}>Login</Link>
+
+                <Link onClick={() => handleLinkClick(ROUTES.LOGIN)} style={{textDecoration:'none', color:'black'}}>Login</Link>
+
               </MenuItem>
             )}
             </Menu>
@@ -92,7 +101,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
       </Toolbar>
     </AppBar>
     <div>
-      <Grid className="layout__content" item xs={10}>{children}</Grid>
+      {children}
     </div>
   </div>
   );
