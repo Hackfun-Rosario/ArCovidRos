@@ -14,6 +14,7 @@ class CovidAPI():
     self.url = url
     self.admin_key = (admin_key or env.get('ADMINKEY'))
     self.token = None
+    self.page_number = 0
 
 
   ## Métodos de HTTP
@@ -27,6 +28,8 @@ class CovidAPI():
     headers: dict()
     '''
     r = requests.get(self.url+path, params = data, headers = headers)
+    self.page(0) # reset page
+    
     return r.json()
 
 
@@ -43,6 +46,18 @@ class CovidAPI():
     '''
     if not res.get('success'):
       print("Error:", res.get('error'))
+
+
+  def page(self, n):
+    '''
+    Paginación
+    '''
+    try:
+      self.page_number = abs(int(n))
+    except:
+      self.page_number = 0
+
+    return self
 
 
   ## Autenticación
@@ -94,8 +109,13 @@ class CovidAPI():
     data = {
       fecha: string(yyyy-mm-dd),
       provincia: string,
-      confirmados: int,
-      muertes: int
+      departamento: string,
+      confirmados_dif: int,
+      confirmados_total: int,
+      muertes_dif: int,
+      muertes_total: int,
+      recuperados_dif: int,
+      recuperados_total: int
     }
     """
     if data:
@@ -103,7 +123,7 @@ class CovidAPI():
       r = self.post('stats', data = data, headers = { 'Authorization': f"Bearer {self.token}" })
     else:
       # get data: sólo levantamos la data existente
-      r = self.get('stats')
+      r = self.get(f'stats/{self.page_number}')
 
     return r
 
@@ -112,7 +132,7 @@ class CovidAPI():
     """
     province: string
     """
-    r = self.get('getStatByProvincia/'+province)
+    r = self.get(f'getStatByProvincia/{province}/{self.page_number}')
     return r
 
 
@@ -121,6 +141,6 @@ class CovidAPI():
     data: string en formato "YYYY-MM-YY"
     ej.: '2020-03-09'
     """
-    r = self.get('getStatByFecha/'+date)
+    r = self.get(f'getStatByFecha/{date}/{self.page_number}')
     return r
 
