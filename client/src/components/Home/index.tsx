@@ -112,6 +112,13 @@ const Home = () => {
           />
         </Grid>
       </Grid>
+      <Grid>
+        <Typography variant="body2" align="right">
+          {" "}
+          Referencia: <b>Con</b>firmados • <b>Mue</b>rtos • <b>Rec</b>uperados •{" "}
+          <b>+</b> Nuevos • <b> = </b> Total &nbsp; &nbsp;
+        </Typography>
+      </Grid>
     </Layout>
   );
 };

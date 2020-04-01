@@ -16,7 +16,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import HackFunIcon from "../Icons/Ico01.svg";
 import { constants, session } from "utils";
-import Dialog from "../Dialog/index";
 
 export default function Header() {
   const { isAuthorized, clearStorage } = session;
