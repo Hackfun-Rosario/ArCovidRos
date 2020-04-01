@@ -4,8 +4,8 @@ const express = require('express'),
   router = express.Router()
 
 router.post('/stats',AuthMiddleware.isAuthenticatedMiddleware, StatsController.createStat)
-router.get('/stats', StatsController.getAllStats)
-router.get('/getStatByFecha/:fecha', StatsController.getStatByFecha)
-router.get('/getStatByProvincia/:provincia', StatsController.getStatByProvincia)
+router.get('/stats/:page?', StatsController.getAllStats)
+router.get('/getStatByFecha/:fecha/:page?', StatsController.getStatByFecha)
+router.get('/getStatByProvincia/:provincia/:page?', StatsController.getStatByProvincia)
 
 module.exports = router

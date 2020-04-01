@@ -29,7 +29,7 @@ const Login = () => {
       const { data: { token }} = response;
 
       localStorage.setItem('covidapi', JSON.stringify({ token: token }));
-      history.push('/abm');
+      history.push('/');
     }).catch((error) => {
       console.warn('Error while tryng to log in', error);
     });
@@ -74,9 +74,13 @@ const Login = () => {
         </Grid>
         <Grid item align="right">
           <Button
-            color="primary"
+            style={{
+              color:"#00ff8b",
+              borderColor:"#00ff8b",
+              fontWeight:"bold"
+              }}
             disabled={loading}
-            variant="contained"
+            variant="outlined"
             onClick={handleClick}
           >
             Iniciar sesion
