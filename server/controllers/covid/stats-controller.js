@@ -35,11 +35,11 @@ createStat = async (req, res) => {
 
 const getAllStats = async (req, res) => {
   // normalize page value
-  let page = Math.abs(req.params.page) || 1
+  let page = Math.abs(req.params.page) || 0
 
   CovidStats.find({}, avoidables)
     .sort({fecha: -1})
-    .skip(((page-1)*limit))
+    .skip(((page)*limit))
     .limit(limit)
     .exec( (err, stats) => {
       if(err) {
@@ -52,11 +52,11 @@ const getAllStats = async (req, res) => {
 
 const getStatByFecha = async (req, res) => {
   // normalize page value
-  let page = Math.abs(req.params.page) || 1
+  let page = Math.abs(req.params.page) || 0
 
   CovidStats.find({fecha: req.params.fecha}, avoidables)
     .sort({fecha: -1})
-    .skip(((page-1)*limit))
+    .skip(((page)*limit))
     .limit(limit)
     .exec((err, stat) => {
       if(err) {
@@ -69,11 +69,11 @@ const getStatByFecha = async (req, res) => {
 
 const getStatByProvincia = async (req, res) => {
   // normalize page value
-  let page = Math.abs(req.params.page) || 1
+  let page = Math.abs(req.params.page) || 0
 
   CovidStats.find({provincia: req.params.provincia}, avoidables)
     .sort({fecha: -1})
-    .skip(((page-1)*limit))
+    .skip(((page)*limit))
     .limit(limit)
     .exec((err, stat) => {
       if(err) {

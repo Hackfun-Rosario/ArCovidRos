@@ -8,34 +8,42 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
 
 import { Layout } from "components";
 import { METHODS, ENDPOINTS } from "utils/constants";
+import { getHeapStatistics } from "v8";
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<stat[]>([]);
+  const [page, setPage] = useState<number>(0);
+
+  const getStats = async (page = 0) => {
+    axios({
+      method: METHODS.GET,
+      url: ENDPOINTS.ABM + `/${page}`,
+    })
+      .then((response) => {
+        const { data } = response;
+        setData(data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.warn("Error while getting stats", error);
+        setLoading(false);
+      });
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+    getStats(newPage);
+  };
 
   useEffect(() => {
     setLoading(true);
-    const getStats = async () => {
-      axios({
-        method: METHODS.GET,
-        url: ENDPOINTS.ABM,
-      })
-        .then((response) => {
-          const { data } = response;
-          setData(data.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.warn("Error while getting stats", error);
-          setLoading(false);
-        });
-    };
-
     getStats();
   }, []);
 
@@ -94,6 +102,14 @@ const Home = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[25]}
+            component="div"
+            count={-1}
+            rowsPerPage={25}
+            page={page}
+            onChangePage={handleChangePage}
+          />
         </Grid>
       </Grid>
     </Layout>

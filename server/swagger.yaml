@@ -63,6 +63,12 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      parameters:
+        - in: "path"
+          required: true
+          name: "page"
+          type: "number"
+          description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"
       responses:
         200:
           description: "Devuelve todas las estadísticas de la base de datos"
@@ -100,6 +106,11 @@ paths:
         description: "Provincia a consultar"
         required: true
         type: "string"
+      - in: "path"
+        required: true
+        name: "page"
+        type: "number"
+        description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"        
       responses:
         200:
           description: "Todos los datos de una provincia"
@@ -137,6 +148,11 @@ paths:
         description: "Fecha a consultar, en formato RFC3339 §5.6"
         required: true
         type: "string"
+      - in: "path"
+        required: true
+        name: "page"
+        type: "number"
+        description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"           
       responses:
         200:
           description: "Todos los datos de una fecha"
