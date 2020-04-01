@@ -40,3 +40,7 @@ Scripts disponibles:
 * Para instalar las dependencias `yarn`
 * Para correr el cliente en modo dev `yarn dev`
 * Para generar el build de producción `yarn build`
+
+## Licenciamiento 
+
+El software de este repositorio se encuentra publicado con una licencia AGPL v3.0

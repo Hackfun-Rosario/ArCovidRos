@@ -1,0 +1,565 @@
+swagger: "2.0"
+info:
+  description: "API pública para la consulta de almacenes cercanos"
+  version: "0.1.0"
+  title: "Almacenes API"
+  contact:
+    email: "info@hackfunrosario.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "almacenes.hackfunrosario.com"
+basePath: "/api"
+schemes:
+- "https"
+paths:
+  /almacenes:
+    get:
+      tags:
+        - "almacenes"
+      summary: "Lista los almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Listado completo de almacenes"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:          
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen'
+  /almacenes/almacen:
+    post:
+      tags:
+        - "almacenes"
+      summary: "Inserta un almacén o actualiza por su nombre"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"        
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: "body"
+          name: "body"
+          schema:
+            $ref: '#/definitions/AlmacenInput'
+      responses:
+        201:
+          description: "Dato guardado correctamente"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                example: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Almacen"
+        400:
+          description: "Datos Inválidos o inexistentes; error al guardar en la base"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+          
+  /almacenes/findAlmacenesByBarrio/{idBarrio}:
+    get:
+      tags:
+        - "almacenes"
+      summary: "Encuentra los almacenes que están dentro del barrio ingresado"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "path"
+          name: "idBarrio"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Listado de almacenes dentro del barrio"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen'   
+          
+      
+  /almacenes/findAlmacenesNearMe:
+    get:
+      tags:
+        - "almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      summary: "Encuentra los almacenes cercanos al punto ingresado"
+      parameters:
+        - in: "query"
+          name: "lng"
+          description: "Longitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "lat"
+          description: "Latitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "maxDistance"
+          description: "Radio máximo de consulta"
+          default: 5000
+          type: "number"
+      responses:
+        200:
+          description: "Listado de almacenes cercanos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "array"
+                items:
+                  $ref: '#/definitions/Almacen' 
+  
+  /almacenes/whereInBarrioDistrito:
+    get:
+      tags:
+        - "almacenes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      summary: "Encuentra el barrio y el distrito de un punto ingresado"
+      parameters:
+        - in: "query"
+          name: "lng"
+          description: "Longitud"
+          required: true
+          type: "number"
+        - in: "query"
+          name: "lat"
+          description: "Latitud"
+          required: true
+          type: "number"
+      responses:
+        200:
+          description: "Barrio y distrito encontrados"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:
+                type: "object"
+                properties:
+                  barrio:
+                    type: "string"
+                    example: "Ludueña Sur y Norte"
+                  distrito:
+                    type: "string"
+                    example: "NORTE (Villa Hortencia)"
+  
+  /almacenes/barrios:
+    get:
+      tags:
+        - "barrios"
+      summary: "Lista los barrios"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Listado completo de barrios"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: true
+              data:          
+                type: "array"
+                items:
+                  $ref: '#/definitions/Barrio'        
+  /almacenes/barrio:
+    post:
+      tags:
+        - "barrios"
+      summary: "Inserta un barrio o actualiza por su nombre"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          schema:
+            $ref: '#/definitions/BarrioInput'
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Dato guardado correctamente"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                example: "true"
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Barrio"
+        400:
+          description: "Datos Inválidos o inexistentes; error al guardar en la base"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+                
+  /auth/registerUser:
+    post:
+      tags:
+      - "auth"
+      summary: "Registro de un usuario nuevo"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "admin-key"
+        in: "header"
+        type: "string"
+        required: true
+        description: "Admin Key necesaria para crear usuarios"
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+            email:
+              type: "string"
+            password:
+              type: "string"
+            name:
+              type: "string"
+            admin:
+              type: "boolean"              
+      responses:
+        200:
+          description: "JWT Token"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              data:
+                type: "object"
+                example: "Usuario creado"
+        400:
+          description: "Datos inválidos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                example: "Es necesario cargar los datos para guardar."
+        403:
+          description: "No tiene permisos para crear usuarios"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: false
+              error:
+                type: "string"
+                default: "Forbidden"
+  /auth/signIn:
+    post:
+      tags:
+      - "auth"
+      summary: "Logueo de un usuario"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+            password:
+              type: "string"
+      responses:
+        200:
+          description: "JWT Token"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "true"
+              token:
+                type: "string"
+              expire:
+                type: "integer"
+                example: "1440"
+        403:
+          description: "Datos inválidos"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+                default: "false"
+              error:
+                type: "string"
+                default: "Forbidden"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+        description: "Nombre"
+      lastName:
+        type: "string"
+        description: "Apellido"
+      email:
+        type: "string"
+        format: "email"
+        description: "Correo del usuario"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "Estado del usuario"
+    xml:
+      name: "User"
+              
+  BarrioInput:
+    type: "object"
+    description: "Definición de un barrio"
+    properties:
+      mslink:
+        type: "number"
+        description: "Parámetro heredado de los datos de la Municipalidad de Rosario"
+        example: 10
+      barrio:
+        type: "string"
+        description: "Nombre del barrio"
+        example: "Pichincha"
+      geojson:
+        description: "geoJSON correspondiente al polígono del barrio"
+        $ref: '#/definitions/polygonSchema'
+        
+  Barrio:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/BarrioInput'
+      
+
+  DistritoInput:
+    type: "object"
+    description: "Definición de un distrito"
+    properties:
+
+      distrito:
+        type: "string"
+        description: "Distrito de rosario"
+        example: "RUR"
+      observacion:
+        type: "string"
+        description: "Nombre del distrito"
+        example: "Rosa Ziperovich"
+      geojson:
+        description: "geoJSON correspondiente al polígono del distrito"
+        $ref: '#/definitions/polygonSchema'
+  Distrito:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/DistritoInput'
+
+  AlmacenInput:
+    type: "object"
+    properties:
+      nombre:
+        type: "string"
+        example: "La Esquina - Bravi, Celia Cristina"
+        description: "Nombre del almacén"
+      direccion:
+        type: "string"
+        example: "Laprida 3102, 2000, Rosario, Santa Fe"
+        description: "Dirección del almacén"
+      descripcion:
+        type: "string"
+        example: "Datos extras"
+      tipo_comercio:
+        description: "Rubros del comercio"
+        type: "string"
+        example: "Almacén, Limpieza, Bazar"
+      telefono:
+        description: "Teléfonos de contacto"
+        type: "array"
+        items:
+          type: "string"
+          example: "123456789"
+      whatsapp:
+        description: "Whatsapp de contacto"
+        type: "array"
+        items:
+          type: "string"
+          example: "123456789"     
+      barrio:
+        description: "Barrio obtenido de los barrios de la base de datos"
+        type: "string"
+        example: "Pichincha"
+      distrito:
+        description: "Distrito obtenido de los barrios de la base de datos"
+        type: "string"
+        example: "SUR (Rosa Ziperovich)"
+      geojson:
+        description: "geoJSON correspondiente al punto en el mapa"
+        $ref: '#/definitions/pointSchema'
+      extras:
+        type: "array"
+        items:
+          $ref: '#/definitions/extraData'
+
+
+  Almacen:
+    allOf:
+      - type: "object"
+        properties:
+          _id: 
+            type: "string"
+            example: "5e77787d9d388471919abc70"
+            description: "Id del registro"
+      - $ref: '#/definitions/AlmacenInput'
+      - type: "object"
+        properties:
+          createdAt:
+            type: "string"
+            example: "2020-03-22T14:38:53.524Z"
+            description: "Fecha de creación del registro, en formato RFC3339 §5.6"
+          updatedAt:
+            type: "string"
+            example: "2020-03-22T14:38:53.524Z"
+            description: "Fecha de actualización del registro, en formato RFC3339 §5.6"      
+
+  extraData:
+    type: "object"
+    description: "Información extra de un almacén"
+    properties:
+      _id: 
+        type: "string"
+        example: "5e77787d9d388471919abc70"
+        description: "Id del registro"
+      nombre:
+        type: "string"
+        example: "Alimentar"
+      tipo:
+        type: "string"
+        example: "link"
+      valor:
+        type: "string"
+        example: "http://alsa..."
+
+  pointSchema:
+    type: "object"
+    description: "Definición geoJSON para un punto"
+    properties:
+      _id: 
+        type: "string"
+        example: "5e77787d9d388471919abc70"
+        description: "Id del registro"
+      type:
+        type: "string"
+        default: "Point"
+      coordinates:
+        type: "array"
+        maxItems: 2
+        minItems: 2
+        items:
+          type: "number"
+          
+  polygonSchema:
+    type: "object"
+    description: "Definición geoJSON para un polígono"
+    properties:
+      _id: 
+        type: "string"
+        example: "5e77787d9d388471919abc70"
+        description: "Id del registro"
+      type:
+        type: "string"
+        default: "Polygon"
+      coordinates:
+        type: "array"
+        maxItems: 1
+        minItems: 1
+        items:
+          type: "array"
+          maxItems: 1
+          minItems: 1
+          items:
+            $ref: '#/definitions/pointSchema'        
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    in: "header"
+    name: "Authorization"
+      

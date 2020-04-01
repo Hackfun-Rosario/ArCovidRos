@@ -29,7 +29,7 @@ const Login = () => {
       const { data: { token }} = response;
 
       localStorage.setItem('covidapi', JSON.stringify({ token: token }));
-      history.push('/abm');
+      history.push('/');
     }).catch((error) => {
       console.warn('Error while tryng to log in', error);
     });

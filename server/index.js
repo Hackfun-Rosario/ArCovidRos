@@ -5,8 +5,10 @@ const express = require('express'),
   db = require('./db'),
   jwtkey = process.env.JWTKEY,
   port = process.env.PORT || 7000,
-  StatsRouter = require('./routes/stats-routes'),
-  UsersRouter = require('./routes/auth-routes')
+  StatsRouter = require('./routes/covid/stats-routes'),
+  UsersRouter = require('./routes/auth-routes'),
+  BarriosRouter = require('./routes/almacenes/barrios-routes'),
+  AlmacenesRouter = require('./routes/almacenes/almacenes-routes')
 
   app.set('jwtkey', jwtkey)
   app.use(bodyParser.urlencoded({ extended: true}))
@@ -20,5 +22,7 @@ const express = require('express'),
   })
 
   app.use('/api', StatsRouter)
-  app.use('/api/auth', UsersRouter)  
+  app.use('/api/auth', UsersRouter)
+  app.use('/api/almacenes', BarriosRouter)
+  app.use('/api/almacenes', AlmacenesRouter)
   app.listen(port, () => console.log(`Server listening on port ${port}`))

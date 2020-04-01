@@ -1,0 +1,19 @@
+{
+  "nombre": "",
+  "direccion": "",
+  "descripcion": "",
+  "tipo_comercio": "",
+  "telefono": [""],
+  "whatsapp": [""],
+  "barrio": "",
+  "distrito": "",
+  "posicion": "pointSchema(geoJSON)",
+  "extra": [
+    {
+      "_id": "",
+      "nombre": "",
+      "tipo": "link",
+      "valor": "https://lalala"
+    }
+  ]
+}

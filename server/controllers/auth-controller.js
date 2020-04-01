@@ -1,15 +1,11 @@
-const Users = require('../models/user-model')
-const jwt = require('jsonwebtoken')
-
-let forbidden = {
-  success: false,
-  error: 'Forbidden'
-}
+const Users = require('../models/user-model'),
+  jwt = require('jsonwebtoken'),
+  responses = require('../responses')
 
 const signIn = (req, res) => {
   const body = req.body
   if(!body) {
-    return res.status(403).json(forbidden)
+    return res.status(403).json(responses.forbidden)
   }
   
   Users.findOne(
@@ -17,12 +13,12 @@ const signIn = (req, res) => {
   )
   .then(user => {
     if(!user) {
-      return res.status(403).json(forbidden)
+      return res.status(403).json(responses.forbidden)
     }
     user.comparePassword(body.password, (err, isMatch) => {
       if(err) {
         console.log(err)
-        return res.status(403).json(forbidden)
+        return res.status(403).json(responses.forbidden)
       }
       if(isMatch) {
         let expireTime = process.env.JWTEXPIRE || 1440
@@ -35,7 +31,7 @@ const signIn = (req, res) => {
           expire: expireTime
         });
       } 
-      return res.status(403).json(forbidden)
+      return res.status(403).json(responses.forbidden)
     })
   })
 
@@ -45,24 +41,15 @@ const registerUser = (req, res) => {
   const body = req.body
 
   if(!body) {
-    return res.status(400).json({
-      success: false,
-      error: 'Es necesario cargar los datos para guardar.'
-    })
+    return res.status(400).json(responses.faltanDatos)
   }
   const user = new Users(body)
   user.save(function(err) {
     if(err) {
       console.log(err)
-      return res.status(400).json({
-        success: false,
-        error: err
-      })
+      return res.status(400).json(responses.errorAlCargar)
     }
-    return res.status(200).json({
-      success: true,
-      data: 'Usuario creado'
-    })
+    return res.status(200).json(responses.responseData('Usuario Creado'))
   })
 
 }
