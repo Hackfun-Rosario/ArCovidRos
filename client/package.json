@@ -13,7 +13,9 @@
     "prebuild": "yarn clean",
     "build": "parcel build src/index.html",
     "clean": "rimraf dist/index.html dist/src.*.css dist/src.*.js dist/src.*.map",
-    "dev": "parcel src/index.html"
+    "dev": "parcel src/index.html",
+    "prettier-check": "prettier --check src/**/*.{ts,tsx,scss}",
+    "prettier-fix": "prettier --write src/**/*.{ts,tsx,scss}"
   },
   "devDependencies": {
     "@types/node": "^13.9.5",
@@ -50,6 +52,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
+    "*.{ts,tsx,scss}": "prettier --write"
   }
 }

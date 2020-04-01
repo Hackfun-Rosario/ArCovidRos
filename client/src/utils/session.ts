@@ -1,6 +1,6 @@
 const isAuthorized = (): boolean => {
   let isAuthorized = false;
-  const covidapi = JSON.parse(localStorage.getItem('covidapi'));
+  const covidapi = JSON.parse(localStorage.getItem("covidapi"));
 
   if (covidapi && covidapi.token) {
     isAuthorized = true;
@@ -10,7 +10,7 @@ const isAuthorized = (): boolean => {
 };
 
 const clearStorage = (): void => {
-  localStorage.removeItem('covidapi');
+  localStorage.removeItem("covidapi");
 };
 
 export default {
