@@ -1,15 +1,14 @@
-import React from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import React from "react";
+import { Grid, Typography } from "@material-ui/core";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
-import { Layout } from 'components'
-
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import { Layout } from "components";
 
 function createData(
   fecha: string,
@@ -34,15 +33,15 @@ function createData(
     mueDif,
     recTot,
     recDif,
-  }
+  };
 }
 
 const rows = [
   createData(
-    '2020-03-19 00:00',
-    'Santa Fe',
-    'Rosario',
-    'Rosario',
+    "2020-03-19 00:00",
+    "Santa Fe",
+    "Rosario",
+    "Rosario",
     10,
     0,
     5,
@@ -50,7 +49,7 @@ const rows = [
     3,
     1
   ),
-]
+];
 
 const Home = () => (
   <Layout>
@@ -100,6 +99,6 @@ const Home = () => (
       </Grid>
     </Grid>
   </Layout>
-)
+);
 
-export default Home
+export default Home;
