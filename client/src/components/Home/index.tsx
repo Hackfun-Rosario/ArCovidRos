@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
+import axios from "axios";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,98 +9,95 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import moment from "moment";
 
 import { Layout } from "components";
+import { METHODS, ENDPOINTS } from "utils/constants";
 
-function createData(
-  fecha: string,
-  prov: string,
-  ciudad: string,
-  depto: string,
-  confTot: number,
-  confDif: number,
-  mueTot: number,
-  mueDif: number,
-  recTot: number,
-  recDif: number
-) {
-  return {
-    fecha,
-    prov,
-    ciudad,
-    depto,
-    confTot,
-    confDif,
-    mueTot,
-    mueDif,
-    recTot,
-    recDif,
-  };
-}
+const Home = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [data, setData] = useState<stat[]>([]);
 
-const rows = [
-  createData(
-    "2020-03-19 00:00",
-    "Santa Fe",
-    "Rosario",
-    "Rosario",
-    10,
-    0,
-    5,
-    0,
-    3,
-    1
-  ),
-];
+  useEffect(() => {
+    setLoading(true);
+    const getStats = async () => {
+      axios({
+        method: METHODS.GET,
+        url: ENDPOINTS.ABM,
+      })
+        .then((response) => {
+          const { data } = response;
+          setData(data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.warn("Error while getting stats", error);
+          setLoading(false);
+        });
+    };
 
-const Home = () => (
-  <Layout>
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography variant="h5" align="center">
-          COVID-19 Argentina
-        </Typography>
-      </Grid>
-      <Grid xs={12}>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Fecha</TableCell>
-                <TableCell align="center">Provincia</TableCell>
-                <TableCell align="center">Ciudad</TableCell>
-                <TableCell align="center">Departamento</TableCell>
-                <TableCell align="center">Con&nbsp;=</TableCell>
-                <TableCell align="center">Con&nbsp;+</TableCell>
-                <TableCell align="center">Mue&nbsp;=</TableCell>
-                <TableCell align="center">Mue&nbsp;+</TableCell>
-                <TableCell align="center">Rec&nbsp;=</TableCell>
-                <TableCell align="center">Rec&nbsp;+</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row, indice) => (
-                <TableRow key={indice}>
-                  <TableCell component="th" scope="row" align="center">
-                    {row.fecha}
-                  </TableCell>
-                  <TableCell align="center">{row.prov}</TableCell>
-                  <TableCell align="center">{row.ciudad}</TableCell>
-                  <TableCell align="center">{row.depto}</TableCell>
-                  <TableCell align="center">{row.confTot}</TableCell>
-                  <TableCell align="center">{row.confDif}</TableCell>
-                  <TableCell align="center">{row.mueTot}</TableCell>
-                  <TableCell align="center">{row.mueDif}</TableCell>
-                  <TableCell align="center">{row.recTot}</TableCell>
-                  <TableCell align="center">{row.recDif}</TableCell>
+    getStats();
+  }, []);
+
+  return (
+    <Layout>
+      <Grid container>
+        <Grid xs={12}>
+          <TableContainer component={Paper}>
+            <Table style={{ position: "relative" }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Fecha</TableCell>
+                  <TableCell align="center">Provincia</TableCell>
+                  <TableCell align="center">Con&nbsp;=</TableCell>
+                  <TableCell align="center">Con&nbsp;+</TableCell>
+                  <TableCell align="center">Mue&nbsp;=</TableCell>
+                  <TableCell align="center">Mue&nbsp;+</TableCell>
+                  <TableCell align="center">Rec&nbsp;=</TableCell>
+                  <TableCell align="center">Rec&nbsp;+</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {loading && (
+                  <LinearProgress
+                    style={{ position: "absolute", width: "100%", bottom: 0 }}
+                  />
+                )}
+                {!loading &&
+                  data.map((item, index) => {
+                    const {
+                      fecha,
+                      provincia: prov,
+                      confirmados_total: confTot,
+                      confirmados_dif: confDif,
+                      muertes_total: mueTot,
+                      muertes_dif: mueDif,
+                      recuperados_total: recTot,
+                      recuperados_dif: recDif,
+                    } = item;
+
+                    return (
+                      <TableRow key={index}>
+                        <TableCell component="th" scope="row" align="center">
+                          {moment(fecha).format("DD/MM/YYYY")}
+                        </TableCell>
+                        <TableCell align="center">{prov}</TableCell>
+                        <TableCell align="center">{confTot}</TableCell>
+                        <TableCell align="center">{confDif}</TableCell>
+                        <TableCell align="center">{mueTot}</TableCell>
+                        <TableCell align="center">{mueDif}</TableCell>
+                        <TableCell align="center">{recTot}</TableCell>
+                        <TableCell align="center">{recDif}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
       </Grid>
-    </Grid>
-  </Layout>
-);
+    </Layout>
+  );
+};
 
 export default Home;
