@@ -29,8 +29,9 @@ createStat = async (req, res) => {
         return res.status(400).json(responses.errorAlCargar)
       }
 
-      return res.status(201).json(responses.responseData(stat))
     })
+  
+  return res.status(201).json(responses.responseData(stat))
 }
 
 const getAllStats = async (req, res) => {
