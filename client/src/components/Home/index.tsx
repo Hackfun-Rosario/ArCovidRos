@@ -12,28 +12,28 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 function createData(
-  fecha: string, 
-  prov: string, 
+  fecha: string,
+  prov: string,
   ciudad:string,
-  depto: string, 
-  confTot: number, 
+  depto: string,
+  confTot: number,
   confDif: number,
   mueTot: number,
   mueDif: number,
   recTot: number,
   recDif: number,
   ) {
-  return { 
-    fecha , 
-  prov , 
+  return {
+    fecha ,
+  prov ,
   ciudad,
-  depto , 
-  confTot , 
+  depto ,
+  confTot ,
   confDif ,
   mueTot ,
   mueDif ,
   recTot ,
-  recDif 
+  recDif
    };
 }
 
@@ -45,8 +45,8 @@ const rows = [
 const Home = () => (
 
     <Layout>
-        <Grid container > 
-          <Grid item xs={12}> 
+        <Grid container >
+          <Grid item xs={12}>
             <Typography variant="h5" align="center">COVID-19 Argentina</Typography>
 
           </Grid>
@@ -91,7 +91,7 @@ const Home = () => (
         </Grid>
       </Layout>
 
-  
+
 );
 
 export default Home;

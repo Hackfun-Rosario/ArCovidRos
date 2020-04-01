@@ -22,8 +22,11 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.1",
     "moment": "^2.24.0",
     "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.2",
     "sass": "^1.26.3",
     "serve": "^11.3.0",
     "typescript": "^3.8.3"
@@ -40,5 +43,13 @@
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.1.2",
     "rimraf": "^3.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
