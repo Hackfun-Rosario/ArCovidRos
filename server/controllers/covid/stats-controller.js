@@ -68,6 +68,9 @@ const getStatByFecha = async (req, res) => {
 }
 
 const getStatByProvincia = async (req, res) => {
+  // normalize page value
+  let page = Math.abs(req.params.page) || 1
+
   CovidStats.find({provincia: req.params.provincia}, avoidables)
     .sort({fecha: -1})
     .skip(((page-1)*limit))
