@@ -12,6 +12,7 @@ readInterface.on('line', (line) => {
   let jsonString = line.substr(line.indexOf('"{')).trim()
   jsonString = jsonString.replace('"{','{').replace('}"','}').replace(/\"\"/g,'"')
   const geojson = JSON.parse(jsonString.replace(/\r\n/g,'')).geometry
+  console.log(geojson)
   const parser = line.split(',')
   let aux = {
     distrito: parser[0],

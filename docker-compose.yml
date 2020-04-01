@@ -1,4 +1,4 @@
-version: '2.3'
+version: '2.4'
 services:
   server: 
     image: node:alpine
@@ -29,3 +29,5 @@ services:
     image: mongo:latest
     volumes:
       - './mongo:/data/db'
+    command: "mongod --wiredTigerCacheSizeGB 0.4"
+    mem_limit: 500m

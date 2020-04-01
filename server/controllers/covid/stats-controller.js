@@ -12,7 +12,7 @@ createStat = async (req, res) => {
   body.timestamp = new Date(body.fecha).getTime()
 
   const stat = await CovidStats.findOneAndUpdate(
-    {provincia:body.provincia, fecha:body.fecha},
+    {departamento: body.departamento, provincia:body.provincia, fecha:body.fecha},
     body,
     {upsert: true}, 
     err => {

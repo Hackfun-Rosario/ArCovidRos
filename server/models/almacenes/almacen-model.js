@@ -44,6 +44,8 @@ const Almacen = new Schema({
   extras: {
     type: [ExtraData]
   }
+},{
+  timestamps: true
 })
 
 Almacen.index({ 'geojson': '2dsphere' });

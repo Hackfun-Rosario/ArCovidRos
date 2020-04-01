@@ -36,6 +36,7 @@ const NoMatch = (): ReactElement => {
               }} 
               variant="outlined" 
               onClick={() => handleLinkClick(ROUTES.HOME)}>
+
           Volver al inicio
         </Button>
       </div>

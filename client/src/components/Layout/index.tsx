@@ -47,6 +47,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
               <img src={HackFunIcon} width="60px"/>
             </Grid>
             <Grid xs={8} >
+
               <Typography variant="h6" >
               Covid-19 HackFun
               </Typography>
@@ -70,7 +71,9 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
                 onClose={handleMenuClose}
               >
               <MenuItem onClick={handleMenuClose}>
+
                 <Link style={{ marginRight: '10px', textDecoration:'none', color:'black' }} onClick={() => handleLinkClick(ROUTES.HOME)}>Inicio</Link>
+
               </MenuItem>
               {isAuthorized() && (
                 <div>
@@ -79,6 +82,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
                   </MenuItem>
                   <MenuItem onClick={handleMenuClose}>
                     <Link onClick={() => handleLinkClick(ROUTES.ABM_CITY)} style={{textDecoration:'none', color:'black'}}>Alta Ciudad</Link>
+
                   </MenuItem>
                   <MenuItem onClick={logOut}>Logout</MenuItem>
                 </div>
@@ -86,7 +90,9 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
             }
             {!isAuthorized() && (
               <MenuItem onClick={handleMenuClose}>
+
                 <Link onClick={() => handleLinkClick(ROUTES.LOGIN)} style={{textDecoration:'none', color:'black'}}>Login</Link>
+
               </MenuItem>
             )}
             </Menu>
@@ -95,7 +101,6 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
       </Toolbar>
     </AppBar>
     <div>
-     
       {children}
     </div>
   </div>
