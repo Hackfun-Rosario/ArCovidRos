@@ -28,7 +28,7 @@ class CovidAPI():
     headers: dict()
     '''
     r = requests.get(self.url+path, params = data, headers = headers)
-    self.page(0) # reset page
+    self.page_number = 0 # reset page
     
     return r.json()
 
