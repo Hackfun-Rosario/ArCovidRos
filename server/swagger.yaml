@@ -55,6 +55,7 @@ paths:
               error:
                 type: "string"
                 example: "Es necesario cargar los datos para guardar."
+  /stats/{page}:
     get:
       tags:
       - "stats"
@@ -93,7 +94,7 @@ paths:
               error:
                 type: "string"
                 example: "error"
-  /getStatByProvincia/{provincia}:
+  /getStatByProvincia/{provincia}/{page}:
     get:
       tags:
       - "stats"
@@ -135,7 +136,7 @@ paths:
               error:
                 type: "string"
                 example: "error"
-  /getStatByFecha/{fecha}:
+  /getStatByFecha/{fecha}/{page}:
     get:
       tags:
       - "stats"
