@@ -27,11 +27,12 @@ El proyecto está configurado para un entorno de desarrollo. Para ejecutar en mo
  El comando up va a iniciar los contenedores en el bash y mostrar los respectivos logs, si se desea correrlos en background el comando es `docker-compose up -d`
 * El node se ejecuta mediante nodemon por lo que va a recrear el server en vivo mientras se desarrolla.
 
+
+## API Client
+
 * Enlace para ver la documentación de la API:
 
 https://editor.swagger.io/?url=https://raw.githubusercontent.com/Hackfun-Rosario/ArCovidRos/master/server/swagger.yaml
-
-## API Client
 
 El cliente de la API se encuentra dentro del directorio `client`.
 
