@@ -69,6 +69,7 @@ paths:
           required: true
           name: "page"
           type: "number"
+          default: 0
           description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"
       responses:
         200:
@@ -136,6 +137,7 @@ paths:
         required: true
         name: "page"
         type: "number"
+        default: 0
         description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"        
       responses:
         200:
@@ -178,6 +180,7 @@ paths:
         required: true
         name: "page"
         type: "number"
+        default: 0
         description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"           
       responses:
         200:
