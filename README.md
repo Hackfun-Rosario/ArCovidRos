@@ -3,6 +3,9 @@
 ## API Server
 El servidor de la API se encuentra dentro del directorio `server`.
 
+## Documentación
+[Wiki](https://github.com/Hackfun-Rosario/ArCovidRos/wiki)
+
 ### Stack
 * Docker
 * docker-compose
