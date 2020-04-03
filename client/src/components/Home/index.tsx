@@ -87,7 +87,7 @@ const Home = () => {
                     return (
                       <TableRow key={index}>
                         <TableCell component="th" scope="row" align="center">
-                          {moment(fecha).format("DD/MM/YYYY")}
+                          {moment.utc(fecha).format("DD/MM/YYYY")}
                         </TableCell>
                         <TableCell align="center">{prov}</TableCell>
                         <TableCell align="center">{confTot}</TableCell>
