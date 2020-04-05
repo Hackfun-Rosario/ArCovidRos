@@ -10,6 +10,25 @@ const avoidables = {
     updatedAt: 0
   }; // data we don't render
 
+function getStats(req, res, filter) {
+  // normalize page value
+  let page = Math.abs(req.params.page) || 0
+
+    queryResultPromise = CovidStats.find(filter, avoidables)
+      .sort({ fecha: -1 })
+      .skip(page * limit)
+      .limit(limit)
+      .exec()
+      .then(stats => {
+        return res.status(200).json(responses.responseData(stats))
+      })
+      .catch(err => {
+        return res.status(400).json(responses.responseError(err))
+      })
+
+  return queryResultPromise
+}
+
 createStat = async (req, res) => {
   const body = req.body
   body.userId = req.user_id._id
@@ -35,54 +54,15 @@ createStat = async (req, res) => {
 }
 
 const getAllStats = async (req, res) => {
-  // normalize page value
-  let page = Math.abs(req.params.page) || 0
-
-  CovidStats.find({}, avoidables)
-    .sort({fecha: -1})
-    .skip(((page)*limit))
-    .limit(limit)
-    .exec( (err, stats) => {
-      if(err) {
-        return res.status(400).json(responses.responseError(err))
-      }
-      return res.status(200).json(responses.responseData(stats))
-    }
-  )
+  return await getStats(req, res, {})
 }
 
 const getStatByFecha = async (req, res) => {
-  // normalize page value
-  let page = Math.abs(req.params.page) || 0
-
-  CovidStats.find({fecha: req.params.fecha}, avoidables)
-    .sort({fecha: -1})
-    .skip(((page)*limit))
-    .limit(limit)
-    .exec((err, stat) => {
-      if(err) {
-        return res.status(400).json(responses.responseError(err))
-      }
-      return res.status(200).json(responses.responseData(stat))
-    }
-  )
+  return await getStats(req, res, { fecha: req.params.fecha })
 }
 
 const getStatByProvincia = async (req, res) => {
-  // normalize page value
-  let page = Math.abs(req.params.page) || 0
-
-  CovidStats.find({provincia: req.params.provincia}, avoidables)
-    .sort({fecha: -1})
-    .skip(((page)*limit))
-    .limit(limit)
-    .exec((err, stat) => {
-      if(err) {
-        return res.status(400).json(responses.responseError(err))
-      }
-      return res.status(200).json(responses.responseData(stat))            
-    }
-  )
+  return await getStats(req, res, { provincia: req.params.provincia })
 }
 
 module.exports = {
