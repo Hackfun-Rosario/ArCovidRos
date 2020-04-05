@@ -29,7 +29,7 @@ function getStats(req, res, filter) {
   return queryResultPromise
 }
 
-createStat = async (req, res) => {
+const createStat = async (req, res) => {
   const body = req.body
   body.userId = req.user_id._id
 
