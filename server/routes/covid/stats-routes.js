@@ -7,5 +7,9 @@ router.post('/stats',AuthMiddleware.isAuthenticatedMiddleware, StatsController.c
 router.get('/stats/:page?', StatsController.getAllStats)
 router.get('/getStatByFecha/:fecha/:page?', StatsController.getStatByFecha)
 router.get('/getStatByProvincia/:provincia/:page?', StatsController.getStatByProvincia)
+router.get('/totals', StatsController.getTotals)
+router.get('/totalsByProvincia/:provincia', StatsController.getTotalByProvincia)
+router.get('/totalsByFecha/:desde/:hasta', StatsController.getTotalByFechas)
+router.get('/totalsByFecha/:hasta', StatsController.getTotalByFechas)
 
 module.exports = router

@@ -29,37 +29,33 @@ const CovidStats = new Schema(
       type: String,
       index: true
     },
-    confirmados_total: {
+    tipo_transmision: {
+      type: String,
+      default: ''
+    },
+    tests: {
       type: Number,
       default: 0
     },
-    confirmados_dif: {
+    tests_negativos: {
       type: Number,
       default: 0
     },
-    muertes_total: {
+    confirmados: {
       type: Number,
       default: 0
     },
-    muertes_dif: {
+    muertes: {
       type: Number,
       default: 0
     },
-    recuperados_total: {
-      type: Number,
-      default: 0
-    },
-    recuperados_dif: {
+    recuperados: {
       type: Number,
       default: 0
     },        
     url: {
       type: String
-    },
-    userId: {
-      type: String
-    },
-
+    }
   },
   {
     timestamps: true
