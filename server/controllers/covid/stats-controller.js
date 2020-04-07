@@ -58,16 +58,16 @@ const createStat = async (req, res) => {
   return res.status(201).json(responses.responseData(stat))
 }
 
-const getAllStats = async (req, res) => {
-  return await getStats(req, res, {})
+const getAllStats = (req, res) => {
+  getStats(req, res, {})
 }
 
-const getStatByFecha = async (req, res) => {
-  return await getStats(req, res, { fecha: req.params.fecha })
+const getStatByFecha = (req, res) => {
+  getStats(req, res, { fecha: req.params.fecha })
 }
 
-const getStatByProvincia = async (req, res) => {
-  return await getStats(req, res, { provincia: req.params.provincia })
+const getStatByProvincia = (req, res) => {
+  getStats(req, res, { provincia: req.params.provincia })
 }
 
 module.exports = {
