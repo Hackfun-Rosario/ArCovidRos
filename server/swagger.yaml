@@ -65,12 +65,8 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - in: "path"
-          required: true
-          name: "page"
-          type: "number"
-          default: 0
-          description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"
+      - $ref: '#/parameters/pageParam'
+      - $ref: '#/parameters/limitParam'
       responses:
         200:
           description: "Devuelve todas las estadísticas de la base de datos"
@@ -133,12 +129,8 @@ paths:
           - "Santiago del Estero"
           - "Tierra del Fuego"
           - "Tucumán"
-      - in: "path"
-        required: true
-        name: "page"
-        type: "number"
-        default: 0
-        description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"        
+      - $ref: '#/parameters/pageParam'
+      - $ref: '#/parameters/limitParam'
       responses:
         200:
           description: "Todos los datos de una provincia"
@@ -176,12 +168,8 @@ paths:
         description: "Fecha a consultar, en formato RFC3339 §5.6"
         required: true
         type: "string"
-      - in: "path"
-        required: true
-        name: "page"
-        type: "number"
-        default: 0
-        description: "(Opcional) Número de página para ser mostrado. Muestra 25 items"           
+      - $ref: '#/parameters/pageParam'
+      - $ref: '#/parameters/limitParam'
       responses:
         200:
           description: "Todos los datos de una fecha"
@@ -310,6 +298,23 @@ paths:
               error:
                 type: "string"
                 default: "Forbidden"
+parameters:
+  pageParam:
+    name: "page"
+    in: "path"
+    required: true
+    type: "integer"
+    default: 0
+    minimum: 0
+    description: "(Opcional) Número de página para ser mostrado."      
+  limitParam:
+    name: "limit"
+    in: "query"
+    required: false
+    type: "integer"
+    default: 25
+    minimum: 0
+    description: "Cantidad de registros por página que devuelve la consulta. Se pueden devolver todos los registros disponibles en una sola página estableciendo limit = 0."
 definitions:
   User:
     type: "object"
