@@ -57,12 +57,13 @@ const Home = () => {
                 <TableRow>
                   <TableCell align="center">Fecha</TableCell>
                   <TableCell align="center">Provincia</TableCell>
-                  <TableCell align="center">Con&nbsp;=</TableCell>
-                  <TableCell align="center">Con&nbsp;+</TableCell>
-                  <TableCell align="center">Mue&nbsp;=</TableCell>
-                  <TableCell align="center">Mue&nbsp;+</TableCell>
-                  <TableCell align="center">Rec&nbsp;=</TableCell>
-                  <TableCell align="center">Rec&nbsp;+</TableCell>
+                  <TableCell align="center">Departamento</TableCell>
+                  <TableCell align="center">Confirmados</TableCell>
+                  <TableCell align="center">Muertes</TableCell>
+                  <TableCell align="center">Recuperados</TableCell>
+                  <TableCell align="center">Tests</TableCell>
+                  <TableCell align="center">Tests Negativos</TableCell>
+                  <TableCell align="center">Tipo de transmisión</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -76,12 +77,13 @@ const Home = () => {
                     const {
                       fecha,
                       provincia: prov,
-                      confirmados_total: confTot,
-                      confirmados_dif: confDif,
-                      muertes_total: mueTot,
-                      muertes_dif: mueDif,
-                      recuperados_total: recTot,
-                      recuperados_dif: recDif,
+                      departamento: dept,
+                      confirmados: conf,
+                      muertes: muer,
+                      recuperados: recup,
+                      tests: tests,
+                      tests_negativos: ntests,
+                      tipo_transmision: transm,
                     } = item;
 
                     return (
@@ -90,12 +92,13 @@ const Home = () => {
                           {moment.utc(fecha).format("DD/MM/YYYY")}
                         </TableCell>
                         <TableCell align="center">{prov}</TableCell>
-                        <TableCell align="center">{confTot}</TableCell>
-                        <TableCell align="center">{confDif}</TableCell>
-                        <TableCell align="center">{mueTot}</TableCell>
-                        <TableCell align="center">{mueDif}</TableCell>
-                        <TableCell align="center">{recTot}</TableCell>
-                        <TableCell align="center">{recDif}</TableCell>
+                        <TableCell align="center">{dept}</TableCell>
+                        <TableCell align="center">{conf}</TableCell>
+                        <TableCell align="center">{muer}</TableCell>
+                        <TableCell align="center">{recup}</TableCell>
+                        <TableCell align="center">{tests}</TableCell>
+                        <TableCell align="center">{ntests}</TableCell>
+                        <TableCell align="center">{transm}</TableCell>
                       </TableRow>
                     );
                   })}
