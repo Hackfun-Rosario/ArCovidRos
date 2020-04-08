@@ -12,11 +12,19 @@ const avoidables = {
 async function getStats(req, res, filter) {
 
   try {
-    let page  = req.params.page != undefined ? parseInt(req.params.page) : 0
-    let limit = req.query.limit != undefined ? parseInt(req.query.limit) : 25
+    let page     = req.params.page != undefined ? parseInt(req.params.page) : 0
+    let limit    = req.query.limit != undefined ? parseInt(req.query.limit) : 25
+    let fromDate = req.query.fromDate
+    let toDate   = req.query.toDate
 
     if (page  < 0 || isNaN(page))  { throw new RangeError("Page has to be a number greater than or equal to zero." ) }
     if (limit < 0 || isNaN(limit)) { throw new RangeError("Limit has to be a number greater than or equal to zero.") }
+
+    if (!filter.fecha && (fromDate || toDate)) {
+      filter.fecha = {}
+      if (fromDate) { filter.fecha.$gte = fromDate }
+      if (toDate)   { filter.fecha.$lte = toDate   }
+    }
 
     query = CovidStats.find(filter, avoidables)
       .sort({ fecha: -1 })
