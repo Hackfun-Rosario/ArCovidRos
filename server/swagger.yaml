@@ -67,8 +67,6 @@ paths:
       parameters:
       - $ref: '#/parameters/pageParam'
       - $ref: '#/parameters/limitParam'
-      - $ref: '#/parameters/fromDateParam'
-      - $ref: '#/parameters/toDateParam'
       responses:
         200:
           description: "Devuelve todas las estadísticas de la base de datos"
@@ -133,8 +131,6 @@ paths:
           - "Tucumán"
       - $ref: '#/parameters/pageParam'
       - $ref: '#/parameters/limitParam'
-      - $ref: '#/parameters/fromDateParam'
-      - $ref: '#/parameters/toDateParam'
       responses:
         200:
           description: "Todos los datos de una provincia"
