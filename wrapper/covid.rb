@@ -68,7 +68,6 @@ class CovidAPI
     }
     
     res = self.post('auth/registerUser', body, { "admin-key" => @admin_key })
-    puts res
 
     self
   end
@@ -77,7 +76,6 @@ class CovidAPI
   def signIn usr, pwd
     res = self.post('auth/signIn', { username: usr, password: pwd })
     @token = res[:token]
-    puts @token
     
     self
   end
@@ -89,7 +87,19 @@ class CovidAPI
 
 
   def stats body=nil
-    puts "stats, page: #{@page}"
+    ### example body structure
+    # body = {
+    #   fecha: string 'yyyy-mm-dd',
+    #   provincia: string,
+    #   departamento: String,
+    #   confirmados: int,
+    #   muertes: int,
+    #   recuperados: int,
+    #   tests: int,
+    #   tests_negativos: int,
+    #   tipo_transmision: string,
+    # }
+    ###
     if body
       res = self.post("stats", body, { 'Authorization' => "Bearer #{@token}" })
     else
@@ -105,7 +115,6 @@ class CovidAPI
   end
 
   def getStatByProvincia province
-    puts "province: #{province}, page: #{@page}"
     res = self.get("getStatByProvincia/#{province}/#{@page}")
 
     if block_given?
@@ -117,7 +126,6 @@ class CovidAPI
   end
 
   def getStatByFecha date
-    puts "date: #{date}, page: #{@page}"
     res = self.get("getStatByFecha/#{date}/#{@page}")
 
     if block_given?
@@ -126,5 +134,19 @@ class CovidAPI
     end
 
     res
+  end
+
+  def totals
+    self.get("totals")
+  end
+
+  def totalsByProvincia province
+    self.get("totalsByProvincia/#{province}")
+  end
+
+  def totalsByFecha upto, since=nil
+    return self.get("totalsByFecha/#{since}/#{upto}") if since
+
+    return self.get("totalsByFecha/#{upto}")
   end
 end

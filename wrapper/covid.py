@@ -107,15 +107,15 @@ class CovidAPI():
     Sin parámetros: levanta todos los documentos en la API
     Con parámetros: crea la nueva entrada (si estamos logueadxs) con los valores recibidos
     data = {
-      fecha: string(yyyy-mm-dd),
+      fecha: string 'yyyy-mm-dd',
       provincia: string,
-      departamento: string,
-      confirmados_dif: int,
-      confirmados_total: int,
-      muertes_dif: int,
-      muertes_total: int,
-      recuperados_dif: int,
-      recuperados_total: int
+      departamento: String,
+      confirmados: int,
+      muertes: int,
+      recuperados: int,
+      tests: int,
+      tests_negativos: int,
+      tipo_transmision: string,
     }
     """
     if data:
@@ -132,8 +132,7 @@ class CovidAPI():
     """
     province: string
     """
-    r = self.get(f'getStatByProvincia/{province}/{self.page_number}')
-    return r
+    return self.get(f'getStatByProvincia/{province}/{self.page_number}')
 
 
   def getStatByFecha(self, date):
@@ -141,6 +140,31 @@ class CovidAPI():
     data: string en formato "YYYY-MM-YY"
     ej.: '2020-03-09'
     """
-    r = self.get(f'getStatByFecha/{date}/{self.page_number}')
-    return r
+    return self.get(f'getStatByFecha/{date}/{self.page_number}')
 
+
+  def totals(self):
+    """
+    Devuelve el total de datos acumulados
+    """
+    return self.get(f'totals')
+
+
+  def totalsByProvincia(self, province):
+    """
+    Devuelve el total de datos acumulados por provincia
+    """
+    return self.get(f'totalsByProvincia/{province}')
+
+
+  def totalsByFecha(self, until, since=None):
+    """
+    Devuelve el total de datos acumulados cada día hasta la fecha indicada
+    since: fecha de inicio
+    until: fecha de final
+    """
+    if since:
+      return self.get(f'totalsByFecha/{since}/{until}')
+    
+    return self.get(f'totalsByFecha/{until}')
+    
