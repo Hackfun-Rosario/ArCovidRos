@@ -1,10 +1,10 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
-import moment from 'moment';
+import axios from "axios";
+import React, { useState } from "react";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import moment from "moment";
 
-import { METHODS, ENDPOINTS } from 'utils/constants';
-import { Layout } from 'components';
+import { METHODS, ENDPOINTS } from "utils/constants";
+import { Layout } from "components";
 
 const Abm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -12,30 +12,37 @@ const Abm = () => {
   const handleClick = async () => {
     setLoading(true);
 
-    await axios({
-      method: METHODS.POST,
-      url: ENDPOINTS.ABM,
-      data: {
-
-      }
-    }).then((response) => {
-
-    }).catch((error) => {
-      console.warn('Error while tryng to log in', error);
-    });
-
-    setLoading(false);
+    axios
+      .post(ENDPOINTS.ABM, {
+        fecha: date,
+        provincia: province,
+        departamento: depto,
+        confirmados: cases,
+        muertes: death,
+        recuperados: recover,
+        tests: tests,
+        tests_negativos: negtests,
+        url: url,
+      })
+      .then((response) => {
+        console.log("enviado el post");
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.warn("Error while trying to save data", error);
+        setLoading(false);
+      });
   };
 
-  const [date, setDate] = useState<date>(null);
-  const [province, setProvince] = useState<string>('');
+  const [date, setDate] = useState<date>("");
+  const [province, setProvince] = useState<string>("");
+  const [depto, setDepto] = useState<string>("");
   const [cases, setCases] = useState<number>(null);
-  const [newCases, setNewCases] = useState<number>(null);
-  const [deads, setDeads] = useState<number>(null);
-  const [newDeads, setNewDeads] = useState<number>(null);
+  const [death, setDeath] = useState<number>(null);
   const [recover, setRecover] = useState<number>(null);
-  const [newRecover, setNewRecover] = useState<number>(null);
-  const [url, setUrl] = useState<string>('');
+  const [tests, setTests] = useState<number>(null);
+  const [negtests, setNegTests] = useState<number>(null);
+  const [url, setUrl] = useState<string>("");
 
   return (
     <Layout>
@@ -46,50 +53,97 @@ const Abm = () => {
 
         <Grid item xs={6}>
           <Grid item>
-            <TextField fullWidth label="Día" required
-              value={date} onChange={e => setDate(e?.target?.value)} />
+            <TextField
+              fullWidth
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e?.target?.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              label="Provincia"
+              value={province}
+              onChange={(e) => setProvince(e?.target?.value)}
+            />
           </Grid>
           <Grid item>
-            <TextField fullWidth label="Total de confirmados" required
-              value={cases} onChange={e => setCases(e?.target?.value)} />
+            <TextField
+              fullWidth
+              label="Departamento"
+              value={depto}
+              onChange={(e) => setDepto(e?.target?.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              label="Confirmados"
+              type="number"
+              value={cases}
+              onChange={(e) => setCases(e?.target?.value)}
+            />
           </Grid>
           <Grid item>
-            <TextField fullWidth label="Total de muertos"
-              value={deads} onChange={e => setDeads(e?.target?.value)} />
+            <TextField
+              fullWidth
+              label="Muertos"
+              type="number"
+              value={death}
+              onChange={(e) => setDeath(e?.target?.value)}
+            />
           </Grid>
           <Grid item>
-            <TextField fullWidth label="Total de recuperados" required
-              value={recover} onChange={e => setRecover(e?.target?.value)} />
+            <TextField
+              fullWidth
+              label="Recuperados"
+              type="number"
+              value={recover}
+              onChange={(e) => setRecover(e?.target?.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              label="Tests"
+              type="number"
+              value={tests}
+              onChange={(e) => setTests(e?.target?.value)}
+            />
           </Grid>
           <Grid item>
-            <TextField fullWidth label="Url" required
-              value={url} onChange={e => setUrl(e?.target?.value)} />
+            <TextField
+              fullWidth
+              label="Tests Negativos"
+              type="number"
+              value={negtests}
+              onChange={(e) => setNegTests(e?.target?.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              label="Url"
+              value={url}
+              onChange={(e) => setUrl(e?.target?.value)}
+            />
           </Grid>
         </Grid>
 
-        <Grid item xs={6}>
-          <Grid item>
-            <TextField fullWidth label="Provincia" required
-              value={province} onChange={e => setProvince(e?.target?.value)} />
-          </Grid>
-          <Grid item>
-            <TextField fullWidth label="Nuevos casos"
-              value={newCases} onChange={e => setNewCases(e?.target?.value)} />
-          </Grid>
-
-          <Grid item>
-            <TextField fullWidth label="Nuevos muertos"
-              value={newDeads} onChange={e => setNewDeads(e?.target?.value)} />
-          </Grid>
-
-          <Grid item>
-            <TextField fullWidth label="Nuevos recuperados"
-              value={newRecover} onChange={e => setNewRecover(e?.target?.value)} />
-          </Grid>
-        </Grid>
-
-                <Grid item xs={12} align="right">
-          <Button color="primary" disabled={loading} variant="contained" onClick={handleClick}>Agregar</Button>
+        <Grid item xs={12} align="right">
+          <Button
+            color="primary"
+            disabled={loading}
+            variant="contained"
+            onClick={handleClick}
+          >
+            Agregar
+          </Button>
         </Grid>
       </Grid>
     </Layout>
