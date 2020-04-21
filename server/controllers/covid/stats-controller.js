@@ -1,6 +1,6 @@
 const DailyStats = require("../../models/covid/stats-model"),
   responses = require("../../responses");
-
+const importDataFromJSON = require("../../scripts/importFromOfficialAPi");
 const avoidables = {
   _id: 0,
   __v: 0,
@@ -38,7 +38,7 @@ async function getStats(req, res, filter) {
     }
 
     query = DailyStats.find(filter, avoidables)
-      .sort({ date: 1 })
+      .sort({ date: -1 })
       .skip(page * limit);
 
     if (limit > 0) {
@@ -93,9 +93,20 @@ const getStatByProvincia = (req, res) => {
   return [];
 };
 
+const importDataFromJSONCon = async (req, res) => {
+  try {
+    const result = await importDataFromJSON();
+    res.status(201).json(result);
+    console.log("ready");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   createStat,
   getAllStats,
   getStatByDate,
   getStatByProvincia,
+  importDataFromJSONCon,
 };

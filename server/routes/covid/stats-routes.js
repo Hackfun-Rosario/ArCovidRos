@@ -15,4 +15,9 @@ router.get(
   StatsController.getStatByProvincia
 );
 
+/**
+ * Dont use this route in productions, it's only for development
+ */
+router.post("/import-data", StatsController.importDataFromJSONCon);
+
 module.exports = router;
