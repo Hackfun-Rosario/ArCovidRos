@@ -64,7 +64,6 @@ const createStat = async (req, res) => {
 
   const stat = await DailyStats.findOneAndUpdate(
     {
-      byProvincias: body.byProvincias,
       date: body.date,
     },
     body,
