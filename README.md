@@ -1,4 +1,4 @@
-# AR COVID-19 ROS
+# AR COVID-19 ROS (descontinuado)
 
 ## API Server
 El servidor de la API se encuentra dentro del directorio `server`.
